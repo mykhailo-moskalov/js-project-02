@@ -100,10 +100,6 @@ h3 {
   @media only screen and (min-width: 768px) {
     font-size: 40px;
   }
-
-  /* Styles for Desktop devices */
-  @media only screen and (min-width: 1200px) {
-  }
 }
 
 h4 {
@@ -113,12 +109,6 @@ h4 {
   /* Styles for Tablet devices */
   @media only screen and (min-width: 768px) {
     font-size: 32px;
-  }
-}
-
-h5 {
-  /* Styles for Tablet devices */
-  @media only screen and (min-width: 768px) {
   }
 }
 
@@ -137,26 +127,11 @@ h6 {
 
 section {
   padding: 64px 0;
-
-  /* Styles for Tablet devices */
-  @media only screen and (min-width: 768px) {
-  }
-
-  /* Styles for Desktop devices */
-  @media only screen and (min-width: 1200px) {
-  }
 }
 
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 64px;
-
-  @media only screen and (min-width: 768px) {
-    scroll-padding-top: 92px;
-  }
-  @media only screen and (min-width: 1280px) {
-    scroll-padding-top: 88px;
-  }
 }
 
 .visually-hidden {
