@@ -1,11 +1,11 @@
 {
-  "name": "js-project-02",
+  "name": "mebleriia-02",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=/js-project-02/",
+    "build": "vite build --base=/mebleriia-02/",
     "preview": "vite preview"
   },
   "devDependencies": {
