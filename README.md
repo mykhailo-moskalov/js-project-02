@@ -1,1 +1,1 @@
-# js-project-02
+# mebleriia-02
