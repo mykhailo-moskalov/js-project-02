@@ -6,12 +6,12 @@
 
 /* Sections style */
 @import url('./partials/header.css');
-@import url('./partials/hero.html');
-@import url('./partials/furniture.html');
-@import url('./partials/furniture-modal.html');
-@import url('./partials/order.html');
-@import url('./partials/about.html');
-@import url('./partials/popular.html');
-@import url('./partials/faq.html');
-@import url('./partials/feedback.html');
+@import url('./partials/hero.css');
+@import url('./partials/furniture.css');
+@import url('./partials/furniture-modal.css');
+@import url('./partials/order.css');
+@import url('./partials/about.css');
+@import url('./partials/popular.css');
+@import url('./partials/faq.css');
+@import url('./partials/feedback.css');
 @import url('./partials/header.css');
