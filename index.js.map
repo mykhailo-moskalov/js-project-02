@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sources":["../src/js/order.js"],"sourcesContent":["// Phone mask\nIMask(document.getElementById('phone'), {\n  mask: '+{380}-00-000-00-00',\n});\n"],"names":[],"mappings":"ssBACA,MAAM,SAAS,eAAe,OAAO,EAAG,CACtC,KAAM,qBACR,CAAC"}
