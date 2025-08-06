@@ -1,11 +1,11 @@
 {
-  "name": "vanilla-app-template",
+  "name": "js-project-02",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=/vanilla-app-template/",
+    "build": "vite build --base=/js-project-02/",
     "preview": "vite preview"
   },
   "devDependencies": {
@@ -17,6 +17,12 @@
   "author": "Alexander Repeta <alexander.repeta@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "accordion-js": "^3.4.1",
+    "axios": "^1.11.0",
+    "imask": "^7.6.1",
+    "izitoast": "^1.4.0",
+    "raty": "^1.0.5",
+    "swiper": "^11.2.10",
     "vite-plugin-full-reload": "^1.2.0",
     "vite-plugin-html-inject": "^1.1.2"
   }
