@@ -1,3 +1,4 @@
+import IMask from 'imask';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
@@ -213,6 +214,10 @@ const orderModal = {
     this.refs.commentError.style.display = 'none';
   },
 };
+
+IMask(orderModal.refs.phoneInput, {
+  mask: '+38 (0\\00) 000 00 00',
+});
 
 document.addEventListener('DOMContentLoaded', () => {
   orderModal.init();
