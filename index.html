@@ -12,9 +12,12 @@
       referrerpolicy="no-referrer"
     />
     <script type="module" crossorigin src="/mebleriia-02/index.js"></script>
-    <link rel="stylesheet" crossorigin href="/mebleriia-02/assets/index-BnQFJYOv.css">
+    <link rel="modulepreload" crossorigin href="/mebleriia-02/assets/vendor-CgWvd8KG.js">
+    <link rel="stylesheet" crossorigin href="/mebleriia-02/assets/vendor-58GSwf4d.css">
+    <link rel="stylesheet" crossorigin href="/mebleriia-02/assets/index-Z_RNQ4Gj.css">
   </head>
   <body>
+    <button type="button" id="test-open-modal">Відкрити модальне вікно (тест)</button>
     <!-- serhii -->
     <header class="header" id="header">
   <div class="container header-container"></div>
@@ -36,7 +39,72 @@
       <div class="modal" id="modal"></div>
 
       <!-- valerii -->
-      <div class="order" id="order"></div>
+      <!-- кнопка для тесту модального вікна -->
+
+<div class="order" id="order">
+  <div class="order-backdrop" data-modal>
+    <div class="order-modal">
+      <button class="order-close-btn" type="button" data-modal-close>
+        <svg class="order-close-icon" width="32" height="32">
+          <use href="../img/sprite.svg#x"></use>
+        </svg>
+      </button>
+
+      <h2 class="order-title">Замовити зворотний зв'язок</h2>
+
+      <form class="order-form" id="order-form">
+        <div class="order-form-group">
+          <label class="order-form-label"
+            >Email*
+            <input
+              class="order-form-input"
+              type="email"
+              name="email"
+              id="order-email"
+              placeholder="example@email.com"
+              required
+              autocomplete="email"
+              title="Формат: example@email.com"
+          /></label>
+          <p class="input-error-message" id="email-error"></p>
+        </div>
+
+        <div class="order-form-group">
+          <label class="order-form-label"
+            >Телефон*
+            <input
+              class="order-form-input"
+              type="tel"
+              name="phone"
+              id="order-phone"
+              placeholder="+38 (099) 123 22 11"
+              required
+              autocomplete="tel"
+          /></label>
+          <p class="input-error-message" id="phone-error"></p>
+        </div>
+
+        <div class="order-form-group">
+          <label class="order-form-label"
+            >Коментар
+            <textarea
+              class="order-form-textarea"
+              name="comment"
+              id="order-comment"
+              placeholder="Type your message..."
+              minlength="5"
+              maxlength="256"
+              title="Від 5 до 256 символів"
+            ></textarea>
+          </label>
+          <p class="input-error-message" id="comment-error"></p>
+        </div>
+
+        <button class="order-submit-btn" type="submit">Надіслати заявку</button>
+      </form>
+    </div>
+  </div>
+</div>
 
       <!-- andrii k. -->
       <section class="about" id="about">
@@ -55,7 +123,29 @@
 
       <!-- TL -->
       <section class="feedback" id="feedback">
-  <div class="container feedback-container"><ul></ul></div>
+  <div class="container feedback-container">
+    <h2 class="feedback-title">Відгуки клієнтів</h2>
+    <p class="feedback-descr">Дізнайтеся, що кажуть наші задоволені клієнти про нашу меблі.</p>
+    <div class="feedback-loader loader hidden"></div>
+    <div class="swiper feedback-swiper">
+      <div class="swiper-wrapper"></div>
+    </div>
+    <div class="feedback-controls">
+      <div class="swiper-pagination"></div>
+      <div class="feedback-buttons">
+        <button type="button" class="swiper-button-prev">
+          <svg class="feedback-arrow" width="24" height="24">
+            <use href="/mebleriia-02/assets/sprite-j_16tvuG.svg#left-arrow"></use>
+          </svg>
+        </button>
+        <button type="button" class="swiper-button-next">
+          <svg class="feedback-arrow" width="24" height="24">
+            <use href="/mebleriia-02/assets/sprite-j_16tvuG.svg#right-arrow"></use>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
 </section>
 
     </main>
