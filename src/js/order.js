@@ -1,5 +1,7 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+// import Inputmask from 'inputmask';
+// Inputmask('+38 (099) 999 99 99').mask(document.querySelector('#phone'));
 
 const API_URL = 'https://furniture-store.b.goit.study/api/orders';
 

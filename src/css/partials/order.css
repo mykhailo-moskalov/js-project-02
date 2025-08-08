@@ -126,21 +126,32 @@ body {
 
 .order-form-textarea {
   padding-top: 12px;
+  min-height: 180px;
+  resize: vertical;
+}
+input::placeholder {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 160%;
+  color: var(--opacity-neutral-darkest-60);
 }
 
-.order-form-input:focus,
+input:focus::placeholder,
+input:hover::placeholder,
+.order-form-textarea:focus::placeholder,
+.order-form-textarea:hover::placeholder {
+  opacity: 0;
+}
+
+/* .order-form-input:focus,
 .order-form-input:hover,
 .order-form-textarea:focus,
 .order-form-textarea:hover {
   outline: none;
   color: var(--color-scheme-1-text);
   border: 1px solid var(--opacity-neutral-darkest-15);
-}
-
-.order-form-textarea {
-  min-height: 180px;
-  resize: vertical;
-}
+} */
 
 /* Стилі для помилок валідації */
 [data-error] {
@@ -227,7 +238,7 @@ textarea.invalid::placeholder {
   }
 }
 
-@media only screen and (min-width: 1440px) {
+@media only screen and (min-width: 1200px) {
   .order-modal {
     max-width: 866px;
     padding: 64px;
