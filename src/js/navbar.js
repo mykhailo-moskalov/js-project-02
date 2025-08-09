@@ -1,3 +1,5 @@
+import { imgUrl as spriteUrl } from '../img/sprite.svg';
+
 window.addEventListener('DOMContentLoaded', () => {
   const menu = document.querySelector('[data-mobile-menu]');
   const openBtn = document.querySelector('[data-mobile-menu-open]');
@@ -7,15 +9,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
   if (!menu || !openBtn) return;
 
-  const autoSprite = new URL('img/sprite.svg', document.baseURI).pathname;
-  const SPRITE = (openBtn.dataset.sprite || autoSprite).trim();
   const ICON_CLOSED = (openBtn.dataset.iconClosed || 'menu').trim();
   const ICON_OPEN = (openBtn.dataset.iconOpen || 'x').trim();
 
   const setBtnIcon = id => {
     const svg = openBtn.querySelector('svg');
     if (!svg) return;
-    const url = `${SPRITE}#${id}`;
+    const url = `${spriteUrl}#${id}`;
     const ns = 'http://www.w3.org/2000/svg';
     const xns = 'http://www.w3.org/1999/xlink';
 
