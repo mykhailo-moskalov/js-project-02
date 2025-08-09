@@ -56,11 +56,14 @@ const orderModal = {
   },
 
   openModal() {
+    document.body.style.overflow = 'hidden';
+
     document.body.classList.add('modal-open');
     this.refs.modal.classList.remove('visually-hidden');
   },
 
   closeModal() {
+    document.body.style.overflow = '';
     document.body.classList.remove('modal-open');
     this.refs.modal.classList.add('visually-hidden');
     this.refs.form.reset();

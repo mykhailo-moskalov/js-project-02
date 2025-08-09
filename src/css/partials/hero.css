@@ -52,7 +52,6 @@
   box-shadow: 0 1px 2px 0 rgba(8, 12, 9, 0.05), inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2),
     inset 0 0 0 1px rgba(8, 12, 9, 0.15), inset 0 2px 1px 0 rgba(255, 255, 255, 0.25),
     inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
-  cursor: pointer;
   transition: all 150ms ease-in-out;
 
   &:hover,
@@ -60,9 +59,9 @@
     opacity: 0.5;
   }
   &:active {
+    opacity: 1;
     box-shadow: none;
   }
-
   &:disabled {
     cursor: not-allowed;
     opacity: 0.2;
