@@ -1,8 +1,89 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
-
 import axios from 'axios';
 
+import { imgUrl as imgUrl1 } from '../img/webp/categories/category-1.webp';
+import { imgUrl as imgUrl2 } from '../img/webp/categories/category-2.webp';
+import { imgUrl as imgUrl3 } from '../img/webp/categories/category-3.webp';
+import { imgUrl as imgUrl4 } from '../img/webp/categories/category-4.webp';
+import { imgUrl as imgUrl5 } from '../img/webp/categories/category-5.webp';
+import { imgUrl as imgUrl6 } from '../img/webp/categories/category-6.webp';
+import { imgUrl as imgUrl7 } from '../img/webp/categories/category-7.webp';
+import { imgUrl as imgUrl8 } from '../img/webp/categories/category-8.webp';
+import { imgUrl as imgUrl9 } from '../img/webp/categories/category-9.webp';
+import { imgUrl as imgUrl10 } from '../img/webp/categories/category-10.webp';
+import { imgUrl as imgUrl11 } from '../img/webp/categories/category-11.webp';
+import { imgUrl as imgUrl12 } from '../img/webp/categories/category-12.webp';
+import { imgUrl as imgUrl13 } from '../img/webp/categories/category-13.webp';
+import { imgUrl as bigImgUrl1 } from '../img/webp/categories@2x/category-1@2x.webp';
+import { imgUrl as bigImgUrl2 } from '../img/webp/categories@2x/category-2@2x.webp';
+import { imgUrl as bigImgUrl3 } from '../img/webp/categories@2x/category-3@2x.webp';
+import { imgUrl as bigImgUrl4 } from '../img/webp/categories@2x/category-4@2x.webp';
+import { imgUrl as bigImgUrl5 } from '../img/webp/categories@2x/category-5@2x.webp';
+import { imgUrl as bigImgUrl6 } from '../img/webp/categories@2x/category-6@2x.webp';
+import { imgUrl as bigImgUrl7 } from '../img/webp/categories@2x/category-7@2x.webp';
+import { imgUrl as bigImgUrl8 } from '../img/webp/categories@2x/category-8@2x.webp';
+import { imgUrl as bigImgUrl9 } from '../img/webp/categories@2x/category-9@2x.webp';
+import { imgUrl as bigImgUrl10 } from '../img/webp/categories@2x/category-10@2x.webp';
+import { imgUrl as bigImgUrl11 } from '../img/webp/categories@2x/category-11@2x.webp';
+import { imgUrl as bigImgUrl12 } from '../img/webp/categories@2x/category-12@2x.webp';
+import { imgUrl as bigImgUrl13 } from '../img/webp/categories@2x/category-13@2x.webp';
+
+const categoryImages = {
+  1: {
+    src1x: imgUrl1,
+    src2x: bigImgUrl1,
+  },
+  2: {
+    src1x: imgUrl2,
+    src2x: bigImgUrl2,
+  },
+  3: {
+    src1x: imgUrl3,
+    src2x: bigImgUrl3,
+  },
+  4: {
+    src1x: imgUrl4,
+    src2x: bigImgUrl4,
+  },
+  5: {
+    src1x: imgUrl5,
+    src2x: bigImgUrl5,
+  },
+  6: {
+    src1x: imgUrl6,
+    src2x: bigImgUrl6,
+  },
+  7: {
+    src1x: imgUrl7,
+    src2x: bigImgUrl7,
+  },
+  8: {
+    src1x: imgUrl8,
+    src2x: bigImgUrl8,
+  },
+  9: {
+    src1x: imgUrl9,
+    src2x: bigImgUrl9,
+  },
+  // ... repeat for all categories
+  10: {
+    src1x: imgUrl10,
+    src2x: bigImgUrl10,
+  },
+  11: {
+    src1x: imgUrl11,
+    src2x: bigImgUrl11,
+  },
+  12: {
+    src1x: imgUrl12,
+    src2x: bigImgUrl12,
+  },
+  13: {
+    src1x: imgUrl13,
+    src2x: bigImgUrl13,
+  },
+};
 // --------------------------- Шаблоны -----------------------------------------
 
 const templateCat = `<li class="furniture-item" id="{idCat}">
@@ -10,11 +91,8 @@ const templateCat = `<li class="furniture-item" id="{idCat}">
     <h3 class="furniture-item-title">{nameCat}</h3>
   </div>
   <img
-    srcset="
-      /img/webp/categories/category-{numCat}.webp        1x,
-      /img/webp/categories@2x/category-{numCat}@2x.webp 2x
-    "
-    src="/img/webp/categories/category-{numCat}.webp"
+    srcset="{src1x} 1x, {src2x} 2x"
+    src="{src1x}"
     alt="{altCat}"
     class="furniture-item-image"
   />
@@ -70,12 +148,15 @@ async function createCategories(categories) {
   let counter = 1; // Счётчик для numCat, начиная с 1
   const markup = updatedCategories
     .map(item => {
+      const images = categoryImages[counter] || {};
       let temp = templateCat
         .replace('{idCat}', item._id)
         .replace('{nameCat}', item.name)
         .replace('{altCat}', item.name)
-        .replaceAll('{numCat}', counter); // Используем счётчик
-      counter++; // Увеличиваем счётчик для следующего элемента
+        .replace('{src1x}', images.src1x || '')
+        .replace('{src2x}', images.src2x || '')
+        .replaceAll('{numCat}', counter);
+      counter++;
       return temp;
     })
     .join('');
