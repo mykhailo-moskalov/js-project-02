@@ -226,10 +226,13 @@ async function handleLoadMore(event) {
       totalCounter -= response.furnitures.length;
       if (!totalCounter) {
         hideLoadMore();
+        iziToast.info({
+          message: "We're sorry, but you've reached the end of search results.",
+          position: 'topRight',
+        });
       }
 
       const firstcard = document.querySelector('.furniture-list-item');
-
       if (firstcard) {
         const cardHeight = firstcard.getBoundingClientRect().height;
         window.scrollBy({
@@ -256,6 +259,19 @@ async function handleLoadMore(event) {
       totalCounter -= response.furnitures.length;
       if (!totalCounter) {
         hideLoadMore();
+        iziToast.info({
+          message: "We're sorry, but you've reached the end of search results.",
+          position: 'topRight',
+        });
+      }
+
+      const firstcard = document.querySelector('.furniture-list-item');
+      if (firstcard) {
+        const cardHeight = firstcard.getBoundingClientRect().height;
+        window.scrollBy({
+          top: cardHeight,
+          behavior: 'smooth',
+        });
       }
     } catch (error) {
       iziToast.show({
