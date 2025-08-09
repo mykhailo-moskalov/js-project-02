@@ -269,9 +269,7 @@ let currentCategoryId = 'all-categories';
 let currentPage = 1;
 
 const loadMore = document.querySelector('.furniture-load-more');
-const loadNo = document.querySelector('.furniture-load-no');
 
-hideLoadNoButton();
 hideLoadMoreButton();
 showLoader('.furniture-loader');
 fetchCategories();
@@ -280,7 +278,10 @@ fetchFurnitures(currentPage, currentCategoryId, limit, '.furniture-cards').then(
   loadMore.textContent = `Показати ще ${limit} з ${remainingItems}`;
   if (currentPage * limit >= data.totalItems) {
     hideLoadMoreButton();
-    showLoadNoButton();
+    iziToast.info({
+      message: "We're sorry, but you've reached the end of search results.",
+      position: 'topRight',
+    });
   }
   hideLoader('.furniture-loader');
 });
@@ -290,7 +291,6 @@ const furnitureCategories = document.querySelector('.furniture-categories');
 
 // Клик на категорию
 furnitureCategories.addEventListener('click', event => {
-  hideLoadNoButton();
   hideLoadMoreButton();
   currentPage = 1;
   currentCategoryId = event.target.closest('.furniture-item').getAttribute('id');
@@ -303,7 +303,10 @@ furnitureCategories.addEventListener('click', event => {
     loadMore.textContent = `Показати ще ${show} з ${remainingItems}`;
     if (currentPage * limit >= data.totalItems) {
       hideLoadMoreButton();
-      showLoadNoButton();
+      iziToast.info({
+        message: "We're sorry, but you've reached the end of search results.",
+        position: 'topRight',
+      });
     }
     hideLoader('.furniture-loader');
   });
@@ -313,6 +316,7 @@ furnitureCategories.addEventListener('click', event => {
 loadMore.addEventListener('click', () => {
   hideLoadMoreButton();
   showLoader('.furniture-loader');
+
   currentPage++;
   fetchFurnitures(currentPage, currentCategoryId, limit, '.furniture-cards').then(data => {
     const remainingItems = data.totalItems - currentPage * limit;
@@ -320,8 +324,20 @@ loadMore.addEventListener('click', () => {
     loadMore.textContent = `Показати ще ${show} з ${remainingItems}`;
     if (currentPage * limit >= data.totalItems) {
       hideLoadMoreButton();
-      showLoadNoButton();
+      iziToast.info({
+        message: "We're sorry, but you've reached the end of search results.",
+        position: 'topRight',
+      });
     }
     hideLoader('.furniture-loader');
   });
+  const firstcard = document.querySelector('.furniture-card');
+
+  if (firstcard) {
+    const cardHeight = firstcard.getBoundingClientRect().height;
+    window.scrollBy({
+      top: cardHeight,
+      behavior: 'smooth',
+    });
+  }
 });
