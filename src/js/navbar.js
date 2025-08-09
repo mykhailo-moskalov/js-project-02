@@ -1,4 +1,4 @@
-import { imgUrl as spriteUrl } from '../img/sprite.svg';
+import spriteUrl from '../img/sprite.svg';
 
 window.addEventListener('DOMContentLoaded', () => {
   const menu = document.querySelector('[data-mobile-menu]');
