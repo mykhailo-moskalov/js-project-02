@@ -4,4 +4,4 @@ import './js/description';
 import './js/order';
 import './js/faq';
 import './js/feedback';
-import './js/requests';
+import './js/button-blur';

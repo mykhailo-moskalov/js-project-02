@@ -1,9 +1,12 @@
+.furniture {
+  padding: 48px 0;
+}
+
 .show-more-btn {
   display: block;
   border: none;
   border-radius: 100px;
   font-weight: 500;
-  font-size: 16px;
   color: #fff;
   margin: 0 auto;
   width: 100%;
@@ -12,28 +15,22 @@
   box-shadow: 0 1px 2px 0 rgba(8, 12, 9, 0.05), inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2),
     inset 0 0 0 1px rgba(8, 12, 9, 0.15), inset 0 2px 1px 0 rgba(255, 255, 255, 0.25),
     inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
-  background: #6b0609;
+  background-color: #6b0609;
   margin-top: 32px;
-  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
-}
+  transition: all 150ms ease-in-out;
 
-.show-more-btn:hover,
-.show-more-btn:focus {
-  opacity: 0.5;
+  &:hover,
+  &:focus {
+    opacity: 0.5;
+  }
 }
 
 .section-title {
   margin-bottom: 16px;
-  font-weight: 700;
-  font-size: 36px;
-  line-height: 1.2;
-  letter-spacing: 0.01em;
 }
 
 .section-subtitle {
   margin-bottom: 40px;
-  font-weight: 400;
-  font-size: 16px;
   line-height: 1.6;
 }
 
@@ -57,7 +54,6 @@
   font-weight: 700;
   font-size: 18px;
   line-height: 1.4;
-  letter-spacing: 0.01em;
   text-align: center;
   color: #fff;
   background-repeat: no-repeat;
@@ -67,6 +63,11 @@
   border-radius: 8px;
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
+
+  &:hover,
+  &:focus {
+    transform: scale(1.05);
+  }
 }
 
 .categories-btn.accent::before {
@@ -93,7 +94,6 @@
 
 .furniture-item-name {
   font-weight: 600;
-  font-size: 16px;
   line-height: 1.6;
   margin-bottom: 8px;
 }
@@ -109,7 +109,6 @@
   display: block;
   margin: 0 auto;
   font-weight: 500;
-  font-size: 16px;
   line-height: 1.6;
   border: none;
   border-radius: 100px;
@@ -117,17 +116,15 @@
   padding-top: 10px;
   padding-bottom: 10px;
   width: 100%;
-  /* width: 335px;
-  height: 46px; */
   box-shadow: 0 1px 2px 0 rgba(8, 12, 9, 0.05), inset 0 -2px 1px 0 rgba(8, 12, 9, 0.05),
     inset 0 0 0 1px rgba(8, 12, 9, 0.05);
   background: rgba(8, 12, 9, 0.05);
-  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
-}
+  transition: all 150ms ease-in-out;
 
-.furniture-details-btn:hover,
-.furniture-details-btn:focus {
-  opacity: 0.5;
+  &:hover,
+  &:focus {
+    opacity: 0.5;
+  }
 }
 
 .furniture-colors {
@@ -151,68 +148,137 @@ span[style*='color: #FFFFFF;'] {
   border: 8px solid #6b0609;
 }
 
-.categories-btn:hover,
-.categories-btn:focus {
-  transform: scale(1.05);
-}
-
 .all-category {
   background-image: url('/img/webp/categories/category-13.webp');
+
+  @media screen and (min-resolution: 2dppx),
+    (min-resolution: 192dpi),
+    (-webkit-min-device-pixel-ratio: 2) {
+    background-image: url('/img/webp/categories@2x/category-13@2x.webp');
+  }
 }
 
 .soft-category {
   background-image: url('/img/webp/categories/category-12.webp');
+
+  @media screen and (min-resolution: 2dppx),
+    (min-resolution: 192dpi),
+    (-webkit-min-device-pixel-ratio: 2) {
+    background-image: url('/img/webp/categories@2x/category-12@2x.webp');
+  }
 }
 
 .storage-category {
   background-image: url('/img/webp/categories/category-11.webp');
+
+  @media screen and (min-resolution: 2dppx),
+    (min-resolution: 192dpi),
+    (-webkit-min-device-pixel-ratio: 2) {
+    background-image: url('/img/webp/categories@2x/category-11@2x.webp');
+  }
 }
 
 .beds-category {
   background-image: url('/img/webp/categories/category-10.webp');
+
+  @media screen and (min-resolution: 2dppx),
+    (min-resolution: 192dpi),
+    (-webkit-min-device-pixel-ratio: 2) {
+    background-image: url('/img/webp/categories@2x/category-10@2x.webp');
+  }
 }
 
 .tabels-category {
   background-image: url('/img/webp/categories/category-9.webp');
+
+  @media screen and (min-resolution: 2dppx),
+    (min-resolution: 192dpi),
+    (-webkit-min-device-pixel-ratio: 2) {
+    background-image: url('/img/webp/categories@2x/category-9@2x.webp');
+  }
 }
 
 .chairs-category {
   background-image: url('/img/webp/categories/category-8.webp');
+
+  @media screen and (min-resolution: 2dppx),
+    (min-resolution: 192dpi),
+    (-webkit-min-device-pixel-ratio: 2) {
+    background-image: url('/img/webp/categories@2x/category-8@2x.webp');
+  }
 }
 
 .kitchens-category {
   background-image: url('/img/webp/categories/category-7.webp');
+
+  @media screen and (min-resolution: 2dppx),
+    (min-resolution: 192dpi),
+    (-webkit-min-device-pixel-ratio: 2) {
+    background-image: url('/img/webp/categories@2x/category-7@2x.webp');
+  }
 }
 
 .nursery-category {
   background-image: url('/img/webp/categories/category-6.webp');
+
+  @media screen and (min-resolution: 2dppx),
+    (min-resolution: 192dpi),
+    (-webkit-min-device-pixel-ratio: 2) {
+    background-image: url('/img/webp/categories@2x/category-6@2x.webp');
+  }
 }
 
 .office-category {
   background-image: url('/img/webp/categories/category-5.webp');
+
+  @media screen and (min-resolution: 2dppx),
+    (min-resolution: 192dpi),
+    (-webkit-min-device-pixel-ratio: 2) {
+    background-image: url('/img/webp/categories@2x/category-5@2x.webp');
+  }
 }
 
 .hallway-category {
   background-image: url('/img/webp/categories/category-4.webp');
+
+  @media screen and (min-resolution: 2dppx),
+    (min-resolution: 192dpi),
+    (-webkit-min-device-pixel-ratio: 2) {
+    background-image: url('/img/webp/categories@2x/category-4@2x.webp');
+  }
 }
 
 .bathroom-category {
   background-image: url('/img/webp/categories/category-3.webp');
+
+  @media screen and (min-resolution: 2dppx),
+    (min-resolution: 192dpi),
+    (-webkit-min-device-pixel-ratio: 2) {
+    background-image: url('/img/webp/categories@2x/category-3@2x.webp');
+  }
 }
 
 .garden-category {
   background-image: url('/img/webp/categories/category-2.webp');
+
+  @media screen and (min-resolution: 2dppx),
+    (min-resolution: 192dpi),
+    (-webkit-min-device-pixel-ratio: 2) {
+    background-image: url('/img/webp/categories@2x/category-2@2x.webp');
+  }
 }
 
 .decor-category {
   background-image: url('/img/webp/categories/category-1.webp');
+
+  @media screen and (min-resolution: 2dppx),
+    (min-resolution: 192dpi),
+    (-webkit-min-device-pixel-ratio: 2) {
+    background-image: url('/img/webp/categories@2x/category-1@2x.webp');
+  }
 }
 
 @media screen and (min-width: 768px) {
-  .section-title {
-    font-size: 48px;
-  }
-
   .categories-btn {
     font-size: 18px;
   }
@@ -228,7 +294,7 @@ span[style*='color: #FFFFFF;'] {
   .furniture-list {
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 24px 24px;
+    gap: 24px;
   }
 
   .furniture-list-item {
@@ -249,6 +315,10 @@ span[style*='color: #FFFFFF;'] {
 }
 
 @media screen and (min-width: 1440px) {
+  .furniture {
+    padding: 80px 0;
+  }
+
   .categories-item {
     flex-basis: calc((100% - 96px) / 7);
   }
