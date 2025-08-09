@@ -5,3 +5,4 @@ import './js/order';
 import './js/faq';
 import './js/feedback';
 import './js/button-blur';
+import './js/popular';
