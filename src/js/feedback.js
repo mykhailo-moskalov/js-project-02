@@ -37,7 +37,7 @@ const feedbackSwiper = new Swiper(feedbackContainer, {
 initFeedback();
 
 async function initFeedback() {
-  showLoader();
+  showLoader('.feedback-loader');
 
   try {
     const data = await getFeedbackList();
@@ -52,7 +52,7 @@ async function initFeedback() {
 
     console.error('Error fetching feedback:', error);
   } finally {
-    hideLoader();
+    hideLoader('.feedback-loader');
   }
 }
 

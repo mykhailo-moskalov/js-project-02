@@ -1,6 +1,7 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import axios from 'axios';
+import { showLoader, hideLoader } from './loader.js';
 
 import imgUrl1 from '../img/webp/categories/category-1.webp';
 import imgUrl2 from '../img/webp/categories/category-2.webp';
@@ -185,16 +186,6 @@ async function fetchCategories() {
   }
 }
 
-// --------------------------- Запуск лодыря -----------------------
-function showLoader() {
-  loader.style.display = 'inline-block';
-}
-
-// --------------------------- Останов лодыря -----------------------
-function hideLoader() {
-  loader.style.display = 'none';
-}
-
 // ----------------------- Показать кнопку Load more ---------------------------
 function showLoadMoreButton() {
   loadMore.style.display = 'block';
@@ -279,11 +270,10 @@ let currentPage = 1;
 
 const loadMore = document.querySelector('.furniture-load-more');
 const loadNo = document.querySelector('.furniture-load-no');
-const loader = document.querySelector('.loader');
 
 hideLoadNoButton();
 hideLoadMoreButton();
-showLoader();
+showLoader('.furniture-loader');
 fetchCategories();
 fetchFurnitures(currentPage, currentCategoryId, limit, '.furniture-cards').then(data => {
   const remainingItems = data.totalItems - currentPage * limit;
@@ -292,7 +282,7 @@ fetchFurnitures(currentPage, currentCategoryId, limit, '.furniture-cards').then(
     hideLoadMoreButton();
     showLoadNoButton();
   }
-  hideLoader();
+  hideLoader('.furniture-loader');
 });
 
 // Работа
@@ -305,7 +295,7 @@ furnitureCategories.addEventListener('click', event => {
   currentPage = 1;
   currentCategoryId = event.target.closest('.furniture-item').getAttribute('id');
   document.querySelector('.furniture-cards').innerHTML = '';
-  showLoader();
+  showLoader('.furniture-loader');
   fetchFurnitures(currentPage, currentCategoryId, limit, '.furniture-cards').then(data => {
     setBorder(currentCategoryId); // Установка бордюра после загрузки
     const remainingItems = data.totalItems - currentPage * limit;
@@ -315,14 +305,14 @@ furnitureCategories.addEventListener('click', event => {
       hideLoadMoreButton();
       showLoadNoButton();
     }
-    hideLoader();
+    hideLoader('.furniture-loader');
   });
 });
 
 // Клик на Далее
 loadMore.addEventListener('click', () => {
   hideLoadMoreButton();
-  showLoader();
+  showLoader('.furniture-loader');
   currentPage++;
   fetchFurnitures(currentPage, currentCategoryId, limit, '.furniture-cards').then(data => {
     const remainingItems = data.totalItems - currentPage * limit;
@@ -332,6 +322,6 @@ loadMore.addEventListener('click', () => {
       hideLoadMoreButton();
       showLoadNoButton();
     }
-    hideLoader();
+    hideLoader('.furniture-loader');
   });
 });

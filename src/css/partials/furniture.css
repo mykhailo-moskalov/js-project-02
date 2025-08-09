@@ -1,53 +1,5 @@
-/*УБРАТЬ
-.furniture-container {
-  background-color: aquamarine;
-}
-
-/*УБРАТЬ
 .furniture {
-  background-color: rgb(127, 191, 255);
-}*/
-
-.loader {
-  width: 48px;
-  height: 48px;
-  border: 2px solid #fff;
-  border-radius: 50%;
-  display: none;
-  position: relative;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
-  margin: auto;
-}
-.loader::after,
-.loader::before {
-  content: '';
-  box-sizing: border-box;
-  position: absolute;
-  left: 0;
-  top: 0;
-  background: #ff3d00;
-  width: 6px;
-  height: 6px;
-  transform: translate(150%, 150%);
-  border-radius: 50%;
-}
-
-.loader::before {
-  left: auto;
-  top: auto;
-  right: 0;
-  bottom: 0;
-  transform: translate(-150%, -150%);
-}
-
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  padding: 48px 0;
 }
 
 .furniture-container {
@@ -55,11 +7,6 @@
   flex-direction: column;
   gap: 40px;
   align-content: space-between;
-  padding: 0;
-}
-
-.furniture {
-  padding: 48px 20px;
 }
 
 .furniture-hdr {
@@ -235,10 +182,6 @@
   margin: 0 auto;
 }
 
-.furniture-load-no {
-  cursor: none;
-}
-
 .furniture-load-more:hover,
 .furniture-load-more:focus {
   opacity: 0.5;
@@ -257,10 +200,6 @@
 
 /* Styles for Tablet devices */
 @media only screen and (min-width: 768px) {
-  .furniture {
-    padding: 48px 32px;
-  }
-
   .furniture-hdr {
     font-size: 48px;
   }
@@ -302,7 +241,7 @@
 /* Styles for Desktop devices */
 @media only screen and (min-width: 1440px) {
   .furniture {
-    padding: 80px 64px;
+    padding: 80px 0;
   }
 
   .furniture-item {
