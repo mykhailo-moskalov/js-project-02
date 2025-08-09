@@ -7,13 +7,18 @@ window.addEventListener('DOMContentLoaded', () => {
 
   if (!menu || !openBtn) return;
 
-  const SPRITE = openBtn.dataset.sprite || '/img/sprite.svg';
-  const ICON_CLOSED = openBtn.dataset.iconClosed || 'menu';
-  const ICON_OPEN = openBtn.dataset.iconOpen || 'x';
+  // Універсальний шлях до спрайта (працює локально і на GitHub Pages)
+  const autoSprite = new URL('img/sprite.svg', document.baseURI).pathname;
+  const SPRITE = (openBtn.dataset.sprite || autoSprite).trim();
+  const ICON_CLOSED = (openBtn.dataset.iconClosed || 'menu').trim();
+  const ICON_OPEN = (openBtn.dataset.iconOpen || 'x').trim();
 
   const setBtnIcon = (id) => {
     const use = openBtn.querySelector('use');
-    if (use) use.setAttribute('href', `${SPRITE}#${id}`);
+    if (!use) return;
+    const url = `${SPRITE}#${id}`;
+    try { use.setAttribute('href', url); } catch (_) {}
+    try { use.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', url); } catch (_) {}
   };
 
   const open = () => {
@@ -34,7 +39,8 @@ window.addEventListener('DOMContentLoaded', () => {
     openBtn.setAttribute('aria-label', 'Відкрити меню');
   };
 
-  openBtn.addEventListener('click', () => {
+  openBtn.addEventListener('click', (e) => {
+    e.preventDefault();
     const expanded = openBtn.getAttribute('aria-expanded') === 'true';
     expanded ? close() : open();
   });
@@ -42,4 +48,14 @@ window.addEventListener('DOMContentLoaded', () => {
   if (closeBtn) closeBtn.addEventListener('click', close);
   links.forEach(a => a.addEventListener('click', close));
   window.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+
+  // Клік поза меню (тільки tablet 768–1439)
+  document.addEventListener('click', (e) => {
+    const w = window.innerWidth;
+    if (w >= 768 && w < 1440 && menu.classList.contains('is-open')) {
+      const clickInsideMenu = menu.contains(e.target);
+      const clickOnToggle = openBtn.contains(e.target) || (closeBtn && closeBtn.contains(e.target));
+      if (!clickInsideMenu && !clickOnToggle) close();
+    }
+  });
 });
