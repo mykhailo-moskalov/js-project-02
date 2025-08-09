@@ -1,7 +1,6 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-
 import axios from 'axios';
 
 // --------------------------- Шаблоны -----------------------------------------
@@ -13,7 +12,7 @@ const templateCat = `<li class="furniture-item" id="{idCat}">
   <img
     srcset="
       /img/webp/categories/category-{numCat}.webp        1x,
-      /img/webp/categories@2x/category-{numCat2}@2x.webp 2x
+      /img/webp/categories@2x/category-{numCat}@2x.webp 2x
     "
     src="/img/webp/categories/category-{numCat}.webp"
     alt="{altCat}"
@@ -42,7 +41,7 @@ async function getCategoriesByQuery(query, page, perPage) {
 }
 
 // --------------------------- Запрос товаров ---------------------------------
-async function getFurnitures(page = 1, categoryId = '',limit) {
+async function getFurnitures(page = 1, categoryId = '', limit) {
   try {
     const params = {
       page,
@@ -62,29 +61,29 @@ async function getFurnitures(page = 1, categoryId = '',limit) {
 
 // ------------------------------------ Рендер категорий -----------------------------------
 async function createCategories(categories) {
-    
   // Добавляем первую категорию "Всі товари" с id="all-categories"
   const updatedCategories = [
-    { _id: "all-categories", name: "Всі товари" },
+    { _id: 'all-categories', name: 'Всі товари' },
     ...categories, // Остальные категории из промиса
   ];
 
   let counter = 1; // Счётчик для numCat, начиная с 1
-  const markup = updatedCategories.map(item => {
-    let temp = templateCat
-      .replace('{idCat}', item._id)
+  const markup = updatedCategories
+    .map(item => {
+      let temp = templateCat
+        .replace('{idCat}', item._id)
         .replace('{nameCat}', item.name)
         .replace('{altCat}', item.name)
-      .replaceAll('{numCat}', counter) // Используем счётчик
-      .replace('{numCat2}', counter) // Используем счётчик
-    counter++; // Увеличиваем счётчик для следующего элемента
-    return temp;
-  }).join('');
+        .replaceAll('{numCat}', counter); // Используем счётчик
+      counter++; // Увеличиваем счётчик для следующего элемента
+      return temp;
+    })
+    .join('');
 
   const furnitureСategories = document.querySelector('.furniture-categories');
-  
+
   furnitureСategories.insertAdjacentHTML('beforeend', markup);
-  
+
   setBorder('all-categories');
 }
 
@@ -92,9 +91,9 @@ async function createCategories(categories) {
 async function fetchCategories() {
   try {
     const data = await getCategoriesByQuery();
-    
+
     await createCategories(data); // Вызов рендера с полученными данными
-   return data;
+    return data;
   } catch (error) {
     iziToast.error({
       title: 'Error',
@@ -105,47 +104,45 @@ async function fetchCategories() {
   }
 }
 
-
 // --------------------------- Запуск лодыря -----------------------
 function showLoader() {
-    loader.style.display = "inline-block";
+  loader.style.display = 'inline-block';
 }
 
 // --------------------------- Останов лодыря -----------------------
 function hideLoader() {
-  loader.style.display = "none";
+  loader.style.display = 'none';
 }
 
 // ----------------------- Показать кнопку Load more ---------------------------
- function showLoadMoreButton() {
-    loadMore.style.display = "block";
+function showLoadMoreButton() {
+  loadMore.style.display = 'block';
 }
 
 // ------------------------- Скрыть кнопку Load more ----------------------------------
- function hideLoadMoreButton() {
-    loadMore.style.display = "none";
+function hideLoadMoreButton() {
+  loadMore.style.display = 'none';
 }
 
 // ----------------------- Показать кнопку Load no ---------------------------
- function showLoadNoButton() {
-    loadNo.style.display = "block";
+function showLoadNoButton() {
+  loadNo.style.display = 'block';
 }
 
 // ------------------------- Скрыть кнопку Load no ----------------------------------
- function hideLoadNoButton() {
-    loadNo.style.display = "none";
+function hideLoadNoButton() {
+  loadNo.style.display = 'none';
 }
 
 // -------------------------------------- Запрос мебели ---------------------------------------
 async function fetchFurnitures(page, categoryId = '', limit, insert) {
-    try {
+  try {
     const data = await getFurnitures(page, categoryId, limit);
-      await createFurnitureCards(data.furnitures, insert);
-     return data;
-        
+    await createFurnitureCards(data.furnitures, insert);
+    return data;
   } catch (error) {
-        hideLoadMoreButton();
-        iziToast.error({
+    hideLoadMoreButton();
+    iziToast.error({
       title: 'Error',
       message: 'Не удалось загрузить товары. Попробуйте позже!',
       position: 'topRight',
@@ -156,25 +153,26 @@ async function fetchFurnitures(page, categoryId = '', limit, insert) {
 
 // --------------------------- Рендер мебели --------------------------
 async function createFurnitureCards(furnitures, insert) {
-  
-    const markup2 = furnitures.map(item => {
+  const markup2 = furnitures
+    .map(item => {
       let colorHtml = '';
-    item.color.forEach(color => {
-      colorHtml += `<span class="furniture-card-color-chek" style="display: inline-block; background-color: ${color};"></span>`;
-    });
-    let temp2 = template2
-      .replace('{srcFrn}', item.images[0])
-      .replace('{nameFrn}', item.name)
-      .replace('{priceFrn}', item.price)
+      item.color.forEach(color => {
+        colorHtml += `<span class="furniture-card-color-chek" style="display: inline-block; background-color: ${color};"></span>`;
+      });
+      let temp2 = template2
+        .replace('{srcFrn}', item.images[0])
+        .replace('{nameFrn}', item.name)
+        .replace('{priceFrn}', item.price)
         .replace('{idFrn}', item._id)
         .replace('{altFrn}', item.description)
         .replace('{colorHtml}', colorHtml);
-    return temp2;
-    }).join('');
-  
+      return temp2;
+    })
+    .join('');
+
   const furnitureCards = document.querySelector(insert);
-    furnitureCards.insertAdjacentHTML('beforeend', markup2);
-    showLoadMoreButton();
+  furnitureCards.insertAdjacentHTML('beforeend', markup2);
+  showLoadMoreButton();
 }
 
 // --------------------------- Функция для управления бордюров -----------------------
@@ -187,10 +185,9 @@ function setBorder(categoryId) {
   });
   // Устанавливаем бордюр для .furniture-item-content внутри указанного id
   const currentItem = document.getElementById(categoryId).querySelector('.furniture-item-content');
-      
-      currentItem.style.border = '8px solid #6b0609';
-      currentItem.style.borderRadius = '8px';
-    
+
+  currentItem.style.border = '8px solid #6b0609';
+  currentItem.style.borderRadius = '8px';
 }
 
 // ---------------------------- Тельце --------------------------------
@@ -207,56 +204,53 @@ hideLoadNoButton();
 hideLoadMoreButton();
 showLoader();
 fetchCategories();
-fetchFurnitures(currentPage, currentCategoryId, limit, '.furniture-cards')
-    .then(data => {
-      const remainingItems = data.totalItems - currentPage * limit;
-      loadMore.textContent = `Показати ще ${limit} з ${remainingItems}`;
-      if (currentPage * limit >= data.totalItems) {
-        hideLoadMoreButton();
-        showLoadNoButton();
-      }
-      hideLoader();
-    });
+fetchFurnitures(currentPage, currentCategoryId, limit, '.furniture-cards').then(data => {
+  const remainingItems = data.totalItems - currentPage * limit;
+  loadMore.textContent = `Показати ще ${limit} з ${remainingItems}`;
+  if (currentPage * limit >= data.totalItems) {
+    hideLoadMoreButton();
+    showLoadNoButton();
+  }
+  hideLoader();
+});
 
 // Работа
 const furnitureCategories = document.querySelector('.furniture-categories');
 
 // Клик на категорию
-furnitureCategories.addEventListener('click', (event) => {
+furnitureCategories.addEventListener('click', event => {
   hideLoadNoButton();
   hideLoadMoreButton();
-    currentPage = 1;
+  currentPage = 1;
   currentCategoryId = event.target.closest('.furniture-item').getAttribute('id');
   document.querySelector('.furniture-cards').innerHTML = '';
-    showLoader();
-  fetchFurnitures(currentPage, currentCategoryId, limit, '.furniture-cards')
-      .then(data => {
-          setBorder(currentCategoryId); // Установка бордюра после загрузки
-          const remainingItems = data.totalItems - currentPage * limit;
-          let show = (limit <= remainingItems) ?  limit : remainingItems  ;
-      loadMore.textContent = `Показати ще ${show} з ${remainingItems}`;
-      if (currentPage * limit >= data.totalItems) {
-        hideLoadMoreButton();
-        showLoadNoButton();
-      }
-      hideLoader();
-    });
+  showLoader();
+  fetchFurnitures(currentPage, currentCategoryId, limit, '.furniture-cards').then(data => {
+    setBorder(currentCategoryId); // Установка бордюра после загрузки
+    const remainingItems = data.totalItems - currentPage * limit;
+    let show = limit <= remainingItems ? limit : remainingItems;
+    loadMore.textContent = `Показати ще ${show} з ${remainingItems}`;
+    if (currentPage * limit >= data.totalItems) {
+      hideLoadMoreButton();
+      showLoadNoButton();
+    }
+    hideLoader();
+  });
 });
 
 // Клик на Далее
 loadMore.addEventListener('click', () => {
-    hideLoadMoreButton();
-    showLoader();
-    currentPage++;
-    fetchFurnitures(currentPage, currentCategoryId, limit, '.furniture-cards')
-    .then(data => {
-      const remainingItems = data.totalItems - currentPage * limit;
-          let show = (limit <= remainingItems) ?  limit : remainingItems  ;
-      loadMore.textContent = `Показати ще ${show} з ${remainingItems}`;
-      if (currentPage * limit >= data.totalItems) {
-        hideLoadMoreButton();
-        showLoadNoButton();
-      }
-      hideLoader();
-    });
+  hideLoadMoreButton();
+  showLoader();
+  currentPage++;
+  fetchFurnitures(currentPage, currentCategoryId, limit, '.furniture-cards').then(data => {
+    const remainingItems = data.totalItems - currentPage * limit;
+    let show = limit <= remainingItems ? limit : remainingItems;
+    loadMore.textContent = `Показати ще ${show} з ${remainingItems}`;
+    if (currentPage * limit >= data.totalItems) {
+      hideLoadMoreButton();
+      showLoadNoButton();
+    }
+    hideLoader();
+  });
 });
