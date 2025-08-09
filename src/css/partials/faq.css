@@ -1,0 +1,71 @@
+.faq-title {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+/*  Контейнер акордеона */
+.ac {
+    border: none !important;
+    border-bottom: solid 1px var(--color-scheme-1-border) !important;
+    
+}
+
+.ac:first-child {
+    border-top: solid 1px var(--color-scheme-1-border) !important;
+}
+
+
+
+/*  Кнопка акордеона  */
+.ac-trigger {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+    height: 72px;
+}
+
+/* При фокусі */
+.ac .ac-trigger:focus {
+    color: var(--color-scheme-1-text) !important;
+}
+
+/* Забираємо стандартну іконку від accordion-js */
+.ac-trigger::after {
+    display: none !important;
+    content: none !important;
+}
+
+.ac-trigger span {
+    flex-grow: 1;
+    text-align: left;
+    font-size: 16px;
+    line-height: 160%;
+}
+
+@media only screen and (min-width: 1440px) {
+    .ac-trigger span {
+        font-size: 18px;
+    }
+}
+
+/*  SVG-іконка всередині кнопки  */
+.ac-trigger svg {
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+/* Анімація іконки */
+.ac-icon {
+    transition: transform 0.3s ease;
+}
+
+/* При відкритті акордеону — обертаємо іконку */
+.ac.is-active .ac-icon {
+    transform: rotate(180deg);
+}
+
+.ac.is-active .ac-panel {
+    padding-bottom: 24px;
+}
