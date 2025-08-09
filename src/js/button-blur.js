@@ -1,7 +1,30 @@
-const button = document.querySelectorAll('button');
+const buttons = document.querySelectorAll('button');
+const links = document.querySelectorAll('a');
 
-button.addEventListener('click', () => {
-  button.forEach(btn => {
-    btn.blur();
+const events = [
+  'click',
+  'mousedown',
+  'mouseleave',
+  'mouseup',
+  'mouseleave',
+  'touchstart',
+  'touchmove',
+  'touchend',
+  'touchcancel',
+];
+
+events.forEach(event => {
+  buttons.forEach(b => {
+    b.addEventListener(event, () => {
+      b.focus();
+      b.blur();
+    });
+  });
+
+  links.forEach(l => {
+    l.addEventListener(event, () => {
+      l.focus();
+      l.blur();
+    });
   });
 });

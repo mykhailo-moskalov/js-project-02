@@ -125,10 +125,6 @@ h6 {
   }
 }
 
-section {
-  padding: 64px 0;
-}
-
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 64px;
