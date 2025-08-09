@@ -11,10 +11,10 @@ const templateCat = `<li class="furniture-item" id="{idCat}">
   </div>
   <img
     srcset="
-      /img/webp/categories/category-{numCat}.webp        1x,
-      /img/webp/categories@2x/category-{numCat}@2x.webp 2x
+      /public/img/webp/categories/category-{numCat}.webp        1x,
+      /public/img/webp/categories@2x/category-{numCat}@2x.webp 2x
     "
-    src="/img/webp/categories/category-{numCat}.webp"
+    src="/public/img/webp/categories/category-{numCat}.webp"
     alt="{altCat}"
     class="furniture-item-image"
   />
