@@ -278,10 +278,13 @@ fetchFurnitures(currentPage, currentCategoryId, limit, '.furniture-cards').then(
   loadMore.textContent = `Показати ще ${limit} з ${remainingItems}`;
   if (currentPage * limit >= data.totalItems) {
     hideLoadMoreButton();
-    iziToast.info({
-      message: "We're sorry, but you've reached the end of search results.",
-      position: 'topRight',
-    });
+
+    if (data.totalItems >= limit) {
+      iziToast.info({
+        message: "We're sorry, but you've reached the end of search results.",
+        position: 'topRight',
+      });
+    }
   }
   hideLoader('.furniture-loader');
 });
@@ -303,10 +306,13 @@ furnitureCategories.addEventListener('click', event => {
     loadMore.textContent = `Показати ще ${show} з ${remainingItems}`;
     if (currentPage * limit >= data.totalItems) {
       hideLoadMoreButton();
-      iziToast.info({
-        message: "We're sorry, but you've reached the end of search results.",
-        position: 'topRight',
-      });
+
+      if (data.totalItems >= limit) {
+        iziToast.info({
+          message: "We're sorry, but you've reached the end of search results.",
+          position: 'topRight',
+        });
+      }
     }
     hideLoader('.furniture-loader');
   });
@@ -324,10 +330,13 @@ loadMore.addEventListener('click', () => {
     loadMore.textContent = `Показати ще ${show} з ${remainingItems}`;
     if (currentPage * limit >= data.totalItems) {
       hideLoadMoreButton();
-      iziToast.info({
-        message: "We're sorry, but you've reached the end of search results.",
-        position: 'topRight',
-      });
+
+      if (data.totalItems >= limit) {
+        iziToast.info({
+          message: "We're sorry, but you've reached the end of search results.",
+          position: 'topRight',
+        });
+      }
     }
     hideLoader('.furniture-loader');
   });
