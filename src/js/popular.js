@@ -17,7 +17,7 @@ class PopularSlider {
     this.items = [];
     this.isLoading = false;
 
-    // Touch/swipe properties
+   
     this.touchStartX = 0;
     this.touchEndX = 0;
     this.isDragging = false;
@@ -36,28 +36,28 @@ class PopularSlider {
   }
 
   bindEvents() {
-    // Button navigation
+ 
     this.prevBtn?.addEventListener('click', () => this.prevSlide());
     this.nextBtn?.addEventListener('click', () => this.nextSlide());
 
-    // Touch events for swipe
+   
     this.slider?.addEventListener('touchstart', e => this.handleTouchStart(e), { passive: true });
     this.slider?.addEventListener('touchmove', e => this.handleTouchMove(e), { passive: false });
     this.slider?.addEventListener('touchend', e => this.handleTouchEnd(e), { passive: true });
 
-    // Mouse events for desktop drag
+  
     this.slider?.addEventListener('mousedown', e => this.handleMouseDown(e));
     this.slider?.addEventListener('mousemove', e => this.handleMouseMove(e));
     this.slider?.addEventListener('mouseup', e => this.handleMouseUp(e));
     this.slider?.addEventListener('mouseleave', e => this.handleMouseUp(e));
 
-    // Prevent default drag behavior
+    
     this.slider?.addEventListener('dragstart', e => e.preventDefault());
 
-    // Keyboard navigation
+   
     document.addEventListener('keydown', e => this.handleKeyPress(e));
 
-    // Window resize
+    
     window.addEventListener('resize', () => this.handleResize());
   }
 
@@ -95,7 +95,7 @@ class PopularSlider {
   renderItems() {
     if (!this.track || !this.items.length) return;
 
-    // Clone items at start and end for infinite loop
+    
     const clonesBefore = this.items.slice(-this.itemsPerView);
     const clonesAfter = this.items.slice(0, this.itemsPerView);
 
@@ -104,10 +104,10 @@ class PopularSlider {
     const itemsHTML = fullSet.map(item => this.createItemHTML(item)).join('');
     this.track.innerHTML = itemsHTML;
 
-    // Adjust totalItems to include clones
+    
     this.totalItems = fullSet.length;
 
-    // Offset the slider to the first real item
+    
     this.currentIndex = this.itemsPerView;
     this.updateSlider(true);
 
@@ -199,7 +199,7 @@ class PopularSlider {
 
     const realSlideCount = Math.ceil(this.items.length / this.itemsPerView);
 
-    // Map cloned index to real index
+    
     let realIndex = (this.currentIndex - this.itemsPerView) % realSlideCount;
     if (realIndex < 0) realIndex += realSlideCount;
 
@@ -214,8 +214,7 @@ class PopularSlider {
 
     if (this.currentIndex >= this.totalItems - this.itemsPerView) {
       setTimeout(() => {
-        this.currentIndex = this.itemsPerView; // Jump back to real first slide
-        this.updateSlider(true);
+        this.currentIndex = this.itemsPerView; 
       }, 300);
     }
   }
@@ -226,7 +225,7 @@ class PopularSlider {
 
     if (this.currentIndex < this.itemsPerView) {
       setTimeout(() => {
-        this.currentIndex = this.totalItems - this.itemsPerView * 2; // Jump to last real slide
+        this.currentIndex = this.totalItems - this.itemsPerView * 2; 
         this.updateSlider(true);
       }, 300);
     }
@@ -245,7 +244,7 @@ class PopularSlider {
     this.updateSlider();
   }
 
-  // Touch/Swipe handlers
+  
   handleTouchStart(e) {
     this.touchStartX = e.touches[0].clientX;
     this.isDragging = true;
@@ -272,7 +271,7 @@ class PopularSlider {
     this.track?.classList.remove('swiping');
 
     const diffX = this.touchStartX - this.touchEndX;
-    const threshold = 50; // Minimum swipe distance
+    const threshold = 50; 
 
     if (Math.abs(diffX) > threshold) {
       if (diffX > 0) {
@@ -285,7 +284,7 @@ class PopularSlider {
     }
   }
 
-  // Mouse handlers for desktop
+ 
   handleMouseDown(e) {
     e.preventDefault();
     this.touchStartX = e.clientX;
@@ -342,37 +341,37 @@ class PopularSlider {
     const newItemsPerView = this.getItemsPerView();
     if (newItemsPerView !== this.itemsPerView) {
       this.itemsPerView = newItemsPerView;
-      this.currentIndex = 0; // Reset to first slide on resize
+      this.currentIndex = 0; 
       this.renderDots();
       this.updateSlider();
     }
   }
 
   setupResponsive() {
-    // Set initial cursor style for desktop
+   
     if (this.slider) {
       this.slider.style.cursor = 'grab';
     }
   }
 
   openItemDetails(itemId) {
-    // This integrates with any existing modal functionality
+    
     console.log('Opening details for item:', itemId);
 
-    // Try to find existing modal handling logic
+    
     const existingModalBtn = document.querySelector(`#${itemId}`);
     if (existingModalBtn) {
       existingModalBtn.click();
       return;
     }
 
-    // Fallback: trigger custom event for potential modal handlers
+    
     const detailEvent = new CustomEvent('showFurnitureDetails', {
       detail: { id: itemId },
     });
     document.dispatchEvent(detailEvent);
 
-    // Additional fallback: try to open a simple alert or navigate
+    
     this.showItemInfo(itemId);
   }
 
@@ -383,7 +382,6 @@ class PopularSlider {
       );
       const item = response.data;
 
-      // Simple alert with item info as fallback
       alert(
         `${item.name}\nPrice: ${item.price} грн\nDescription: ${
           item.description || 'No description available'
@@ -400,12 +398,12 @@ class PopularSlider {
   }
 }
 
-// Initialize the popular slider when DOM is loaded
+
 document.addEventListener('DOMContentLoaded', () => {
   new PopularSlider();
 });
 
-// Also initialize if script is loaded after DOM is ready
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     new PopularSlider();
