@@ -101,14 +101,16 @@
 }
 
 .popular-details-btn:hover {
-  background-color: #080c09;
-  color: #fff;
+  background-color: rgba(8, 12, 9, 0.05);
+  color: #080c09;
+  opacity: 0.5;
   transform: scale(1.02);
 }
 
 .popular-details-btn:focus {
   background-color: #080c09;
-  color: #fff;
+  color: #080c09;
+  opacity: 0.5;
   outline: none;
 }
 
@@ -186,12 +188,10 @@
   background-color: #080c09;
 }
 
-/* Touch/Swipe indicators */
 .popular-slider-track.swiping {
   transition: none;
 }
 
-/* Mobile responsiveness */
 @media screen and (max-width: 767px) {
   .popular {
     padding: 32px 0;
@@ -229,7 +229,6 @@
   }
 }
 
-/* Tablet styles */
 @media screen and (min-width: 768px) {
   .popular-item {
     flex: 0 0 calc(50% - 8px);
@@ -240,7 +239,6 @@
   }
 }
 
-/* Desktop styles */
 @media screen and (min-width: 1440px) {
   .popular {
     padding: 80px 0;
