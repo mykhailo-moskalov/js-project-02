@@ -58,7 +58,7 @@
   opacity: 0.85;
 }
 
-/* ===== Buttons (UI kit) ===== */
+/* Buttons (UI kit) */
 .btn {
   --btn-bg: transparent;
   --btn-fg: var(--color-neutral-darkest);
@@ -179,8 +179,10 @@
 }
 
 /* CTA в меню */
-.mobile-menu__cta {
-  width: 249px; /* ширина по макету для мобилок */
+
+.mobile-menu__cta{
+  width: 249px;        
+
   max-width: 100%;
   align-self: center;
 }
@@ -213,20 +215,14 @@
     opacity: 0;
     pointer-events: none;
   }
-  .mobile-menu.is-open {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-  }
-  .mobile-menu__head {
-    display: none;
-  } /* как в макете */
-  .mobile-menu__cta {
-    width: 249px;
-  }
+
+  .mobile-menu.is-open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .mobile-menu__head { display: none; } 
+  .mobile-menu__cta { width: 249px; }
+
 }
 
-/* tablet landscape (900–1439) — шире */
+/* tablet landscape (900–1439) — ширше */
 @media (min-width: 900px) and (max-width: 1439.98px) {
   .mobile-menu {
     position: fixed;

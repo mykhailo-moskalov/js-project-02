@@ -70,7 +70,7 @@
   justify-content: center;
 }
 
-/* instagram — цвет по просьбе: #210b08 */
+/* instagram — колір іконки: #210b08 */
 .footer__socials .footer__social use[href$="#instagram"] {
   fill: #210b08 !important;
 }
