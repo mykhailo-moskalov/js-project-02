@@ -1,0 +1,261 @@
+.popular {
+  padding: 48px 0;
+  background-color: #f8f9fa;
+}
+
+.popular-container {
+  position: relative;
+}
+
+.popular .section-title {
+  margin-bottom: 32px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.popular-slider-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.popular-slider {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.popular-slider-track {
+  display: flex;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  gap: 16px;
+}
+
+.popular-item {
+  flex: 0 0 calc(100% - 32px);
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.popular-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.popular-item-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.popular-item-name {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  color: #1a1a1a;
+}
+
+.popular-item-colors {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.popular-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.popular-item-price {
+  font-size: 20px;
+  font-weight: 700;
+  color: #080c09;
+  margin-bottom: 16px;
+}
+
+.popular-details-btn {
+  width: 100%;
+  padding: 12px 24px;
+  background-color: rgba(8, 12, 9, 0.05);
+  color: #080c09;
+  border: none;
+  border-radius: 25px;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px 0 rgba(8, 12, 9, 0.05), inset 0 -2px 1px 0 rgba(8, 12, 9, 0.05),
+    inset 0 0 0 1px rgba(8, 12, 9, 0.05);
+}
+
+.popular-details-btn:hover {
+  background-color: #080c09;
+  color: #fff;
+  transform: scale(1.02);
+}
+
+.popular-details-btn:focus {
+  background-color: #080c09;
+  color: #fff;
+  outline: none;
+}
+
+.slider-btn {
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(8, 12, 9, 0.15);
+  border-radius: 50%;
+  background-color: #f2f2f2;
+  color: #080c09;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+.slider-btn:hover {
+  background-color: #080c09;
+  color: #fff;
+  transform: scale(1.1);
+  border-color: #080c09;
+}
+
+.slider-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.slider-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.slider-dots {
+  order: 1;
+  margin-right: auto;
+}
+
+.slider-btn-prev {
+  order: 2;
+}
+
+.slider-btn-next {
+  order: 3;
+}
+
+.slider-dots {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.slider-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(8, 12, 9, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.slider-dot.active {
+  background-color: #080c09;
+  transform: scale(1.2);
+}
+
+.slider-dot:hover {
+  background-color: #080c09;
+}
+
+/* Touch/Swipe indicators */
+.popular-slider-track.swiping {
+  transition: none;
+}
+
+/* Mobile responsiveness */
+@media screen and (max-width: 767px) {
+  .popular {
+    padding: 32px 0;
+  }
+
+  .popular .section-title {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+
+  .slider-controls {
+    justify-content: flex-start;
+    margin-top: 16px;
+  }
+
+  .slider-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .popular-item {
+    padding: 16px;
+  }
+
+  .popular-item-img {
+    height: 160px;
+  }
+
+  .popular-item-name {
+    font-size: 16px;
+  }
+
+  .popular-item-price {
+    font-size: 18px;
+  }
+}
+
+/* Tablet styles */
+@media screen and (min-width: 768px) {
+  .popular-item {
+    flex: 0 0 calc(50% - 8px);
+  }
+
+  .popular .section-title {
+    font-size: 32px;
+  }
+}
+
+/* Desktop styles */
+@media screen and (min-width: 1440px) {
+  .popular {
+    padding: 80px 0;
+  }
+
+  .popular-item {
+    flex: 0 0 calc(25% - 12px);
+  }
+
+  .popular .section-title {
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
+
+  .popular-item-img {
+    height: 240px;
+  }
+}
