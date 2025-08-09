@@ -178,8 +178,8 @@ async function fetchCategories() {
     return data;
   } catch (error) {
     iziToast.error({
-      title: 'Error',
-      message: 'Не удалось загрузить категории. Попробуйте позже!',
+      title: 'Помилка',
+      message: 'Не вдалося завантажити категорії. Спробуйте пізніше!',
       position: 'topRight',
     });
     return [];
@@ -196,16 +196,6 @@ function hideLoadMoreButton() {
   loadMore.style.display = 'none';
 }
 
-// ----------------------- Показать кнопку Load no ---------------------------
-function showLoadNoButton() {
-  loadNo.style.display = 'block';
-}
-
-// ------------------------- Скрыть кнопку Load no ----------------------------------
-function hideLoadNoButton() {
-  loadNo.style.display = 'none';
-}
-
 // -------------------------------------- Запрос мебели ---------------------------------------
 async function fetchFurnitures(page, categoryId = '', limit, insert) {
   try {
@@ -215,8 +205,8 @@ async function fetchFurnitures(page, categoryId = '', limit, insert) {
   } catch (error) {
     hideLoadMoreButton();
     iziToast.error({
-      title: 'Error',
-      message: 'Не удалось загрузить товары. Попробуйте позже!',
+      title: 'Помилка',
+      message: 'Не вдалося завантажити товари. Спробуйте пізніше!',
       position: 'topRight',
     });
     return [];
@@ -281,7 +271,7 @@ fetchFurnitures(currentPage, currentCategoryId, limit, '.furniture-cards').then(
 
     if (data.totalItems >= limit) {
       iziToast.info({
-        message: "We're sorry, but you've reached the end of search results.",
+        message: 'Вибачте, але ви досягли кінця результатів пошуку.',
         position: 'topRight',
       });
     }
@@ -309,7 +299,7 @@ furnitureCategories.addEventListener('click', event => {
 
       if (data.totalItems >= limit) {
         iziToast.info({
-          message: "We're sorry, but you've reached the end of search results.",
+          message: 'Вибачте, але ви досягли кінця результатів пошуку.',
           position: 'topRight',
         });
       }
@@ -333,7 +323,7 @@ loadMore.addEventListener('click', () => {
 
       if (data.totalItems >= limit) {
         iziToast.info({
-          message: "We're sorry, but you've reached the end of search results.",
+          message: 'Вибачте, але ви досягли кінця результатів пошуку.',
           position: 'topRight',
         });
       }
