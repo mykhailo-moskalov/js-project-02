@@ -16,14 +16,12 @@ const events = [
 events.forEach(event => {
   buttons.forEach(b => {
     b.addEventListener(event, () => {
-      b.focus();
       b.blur();
     });
   });
 
   links.forEach(l => {
     l.addEventListener(event, () => {
-      l.focus();
       l.blur();
     });
   });
