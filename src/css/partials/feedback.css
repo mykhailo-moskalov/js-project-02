@@ -81,6 +81,7 @@
   transition: all 100ms ease-in-out;
 
   &:hover,
+  &:focus,
   &:focus-visible {
     background-color: var(--color-madang-light);
     fill: var(--color-scheme-1-background);

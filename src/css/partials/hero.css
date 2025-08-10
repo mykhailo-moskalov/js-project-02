@@ -55,7 +55,8 @@
   transition: all 150ms ease-in-out;
 
   &:hover,
-  &:focus {
+  &:focus,
+  &:focus-visible {
     opacity: 0.5;
   }
   &:active {

@@ -11,7 +11,6 @@
   fill: currentColor;
 }
 
-/* контейнер шапки */
 .header-container {
   height: 72px;
   display: flex;
@@ -19,7 +18,6 @@
   justify-content: space-between;
 }
 
-/* логотип в шапке */
 .header__logo,
 .mobile-menu__logo {
   display: inline-flex;
@@ -37,7 +35,6 @@
   color: var(--color-neutral-darkest);
 }
 
-/* навигация десктоп */
 .header__nav {
   display: none;
   align-items: center;
@@ -54,11 +51,12 @@
   color: var(--color-neutral-darkest);
 }
 .header__link:hover,
-.header__cta:hover {
+.header__link:focus,
+.header__cta:hover,
+.header__cta:focus {
   opacity: 0.85;
 }
 
-/* Buttons (UI kit) */
 .btn {
   --btn-bg: transparent;
   --btn-fg: var(--color-neutral-darkest);
@@ -85,25 +83,26 @@
 
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease,
     box-shadow 0.2s ease, opacity 0.2s ease;
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    opacity: 0.5;
+  }
+  &:active {
+    opacity: 1;
+    box-shadow: none;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.2;
+  }
 }
-.btn:focus-visible {
-  outline: 2px solid var(--color-madang);
-  outline-offset: 2px;
-}
-.btn:active {
-  filter: brightness(0.96);
-}
-.btn:disabled,
-.btn[aria-disabled='true'] {
-  opacity: 0.45;
-  pointer-events: none;
-  cursor: not-allowed;
-}
+
 .btn svg {
   fill: currentColor;
 }
 
-/* основная кнопка */
 .btn--primary {
   --btn-bg: var(--color-madang);
   --btn-fg: var(--color-white);
@@ -116,12 +115,7 @@
     inset 0 2px 1px var(--opacity-white-25), inset 0 0 0 1px var(--opacity-neutral-darkest-15),
     inset 0 -2px 1px var(--opacity-neutral-darkest-20);
 }
-.btn--primary:hover,
-.btn--primary:focus-visible {
-  filter: brightness(1.06);
-}
 
-/* икон-кнопки (бургер/закрыть) */
 .btn--icon {
   width: 40px;
   height: 40px;
@@ -135,9 +129,7 @@
 .btn--icon:focus-visible {
   background: var(--opacity-neutral-darkest-05);
 }
-/* ===== /Buttons ===== */
 
-/* мобильное полноэкранное меню (375–767) */
 .mobile-menu {
   position: fixed;
   inset: 0;
@@ -161,7 +153,6 @@
   justify-content: space-between;
 }
 
-/* список ссылок в меню */
 .mobile-menu__nav {
   display: grid;
   gap: 32px;
@@ -178,16 +169,13 @@
   color: var(--color-neutral-darkest);
 }
 
-/* CTA в меню */
-
-.mobile-menu__cta{
-  width: 249px;        
+.mobile-menu__cta {
+  width: 249px;
 
   max-width: 100%;
   align-self: center;
 }
 
-/* focus-видимость */
 .header__logo:focus-visible,
 .header__link:focus-visible,
 .mobile-menu__link:focus-visible,
@@ -200,7 +188,6 @@
   overflow: hidden;
 }
 
-/* tablet portrait (768–899) — карточка справа под шапкой */
 @media (min-width: 768px) and (max-width: 899.98px) {
   .mobile-menu {
     position: fixed;
@@ -216,13 +203,19 @@
     pointer-events: none;
   }
 
-  .mobile-menu.is-open { transform: translateY(0); opacity: 1; pointer-events: auto; }
-  .mobile-menu__head { display: none; } 
-  .mobile-menu__cta { width: 249px; }
-
+  .mobile-menu.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .mobile-menu__head {
+    display: none;
+  }
+  .mobile-menu__cta {
+    width: 249px;
+  }
 }
 
-/* tablet landscape (900–1439) — ширше */
 @media (min-width: 900px) and (max-width: 1439.98px) {
   .mobile-menu {
     position: fixed;
@@ -247,10 +240,9 @@
   }
   .mobile-menu__cta {
     width: 298px;
-  } /* ширина CTA для horizontal tablet */
+  }
 }
 
-/* desktop (≥1440) */
 @media (min-width: 1440px) {
   .header__nav {
     display: inline-flex;
