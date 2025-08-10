@@ -11,71 +11,71 @@
   margin-bottom: 32px;
 }
 
-/*  Контейнер акордеона */
 .ac {
   border: none !important;
   border-bottom: solid 1px var(--color-scheme-1-border) !important;
+  margin-bottom: 0 !important;
+  transition: all 150ms ease-in-out;
+
+  &.ac.is-active {
+    border-radius: 4px;
+  }
+  &:first-child {
+    border-top: solid 1px var(--color-scheme-1-border) !important;
+  }
+
+  &:has(.ac-trigger:hover),
+  &:has(.ac-trigger:focus),
+  &:has(.ac-trigger:focus-visible) {
+    border-radius: 4px;
+    background-color: var(--color-scheme-1-border) !important;
+  }
+  &:has(.ac-trigger:active) {
+    background-color: var(--opacity-neutral-darkest-30) !important;
+  }
 }
 
-.ac:first-child {
-  border-top: solid 1px var(--color-scheme-1-border) !important;
-}
-
-/*  Кнопка акордеона  */
 .ac-trigger {
   display: flex !important;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  gap: 1rem;
   height: 72px;
-}
 
-/* При фокусі */
-.ac .ac-trigger:focus {
-  color: var(--color-scheme-1-text) !important;
-}
-
-/* Забираємо стандартну іконку від accordion-js */
-.ac-trigger::after {
-  display: none !important;
-  content: none !important;
+  &::after {
+    display: none !important;
+    content: none !important;
+  }
 }
 
 .ac-trigger span {
   flex-grow: 1;
   text-align: left;
-  font-size: 16px;
   line-height: 160%;
-}
 
-@media only screen and (min-width: 1440px) {
-  .ac-trigger span {
+  @media only screen and (min-width: 1440px) {
     font-size: 18px;
   }
 }
 
-/*  SVG-іконка всередині кнопки  */
 .ac-trigger svg {
   margin-left: auto;
   flex-shrink: 0;
 }
 
-/* Анімація іконки */
 .ac-icon {
-  transition: transform 0.3s ease;
+  transition: transform 300ms ease-in-out;
 }
 
-/* При відкритті акордеону — обертаємо іконку */
 .ac.is-active .ac-icon {
   transform: rotate(180deg);
 }
 
-.ac.is-active .ac-panel {
-  padding-bottom: 24px;
+.ac-panel {
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
 }
 
-.ac-panel {
-  transition: max-height 0.3s ease, padding 0.3s ease;
-  overflow: hidden;
+.ac .ac-panel .ac-text {
+  padding: 8px 8px 32px !important;
 }

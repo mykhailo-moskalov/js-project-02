@@ -184,3 +184,8 @@ html {
 .hidden {
   display: none;
 }
+
+button:focus-visible,
+a:focus-visible {
+  outline: none !important;
+}
