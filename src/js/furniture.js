@@ -334,6 +334,9 @@ loadMore.addEventListener('click', () => {
 
   if (firstcard) {
     const cardHeight = firstcard.getBoundingClientRect().height;
+    // if (cardHeight < 420) {
+    //   cardHeight += 28.8;
+    // }
     window.scrollBy({
       top: cardHeight,
       behavior: 'smooth',
