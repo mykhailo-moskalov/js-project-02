@@ -91,7 +91,7 @@ async function getPopularList() {
     const response = await axios.get('https://furniture-store.b.goit.study/api/furnitures', {
       params: {
         page: 1,
-        limit: 10,
+        limit: 11,
         type: 'popular',
       },
     });

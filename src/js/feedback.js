@@ -96,7 +96,7 @@ async function getFeedbackList() {
     const response = await axios.get('https://furniture-store.b.goit.study/api/feedbacks', {
       params: {
         page: 1,
-        limit: 10,
+        limit: 25,
       },
     });
 
