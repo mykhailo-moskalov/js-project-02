@@ -10,14 +10,14 @@ import { showLoader, hideLoader } from './loader.js';
 const feedbackContainer = document.querySelector('.feedback-swiper');
 const feedbackSwiper = new Swiper(feedbackContainer, {
   pagination: {
-    el: '.swiper-pagination',
+    el: '.feedback .swiper-pagination',
     clickable: true,
     dynamicBullets: true,
   },
 
   navigation: {
-    prevEl: '.swiper-button-prev',
-    nextEl: '.swiper-button-next',
+    prevEl: '.feedback .swiper-button-prev',
+    nextEl: '.feedback .swiper-button-next',
   },
 
   slidesPerView: 1,
@@ -69,7 +69,9 @@ async function createFeedbackList(data) {
 `
     )
     .join('');
-  feedbackContainer.querySelector('.swiper-wrapper').insertAdjacentHTML('beforeend', markup);
+  feedbackContainer
+    .querySelector('.feedback .swiper-wrapper')
+    .insertAdjacentHTML('beforeend', markup);
   document.querySelectorAll('.rating-list').forEach(item => {
     const score = parseFloat(item.dataset.score);
 

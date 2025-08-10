@@ -24,7 +24,7 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  min-height: 98px; 
+  min-height: 98px;
 }
 
 .footer__logo-icon {
@@ -53,7 +53,11 @@
 }
 
 .footer__link:hover,
-.footer__social:hover {
+.footer__link:focus,
+.footer__link:focus-visible,
+.footer__social:hover,
+.footer__social:focus,
+.footer__social:focus-visible {
   opacity: 0.85;
 }
 
@@ -70,8 +74,7 @@
   justify-content: center;
 }
 
-/* instagram — колір іконки: #210b08 */
-.footer__socials .footer__social use[href$="#instagram"] {
+.footer__socials .footer__social use[href$='#instagram'] {
   fill: #210b08 !important;
 }
 
@@ -82,7 +85,6 @@
   text-align: center;
 }
 
-/* tablet portrait (768–899) */
 @media (min-width: 768px) and (max-width: 899.98px) {
   .footer-container {
     padding: 32px 0;
@@ -114,7 +116,6 @@
   }
 }
 
-/* tablet landscape (900–1439) */
 @media (min-width: 900px) and (max-width: 1439.98px) {
   .footer-container {
     padding: 32px 0;
@@ -164,7 +165,6 @@
   }
 }
 
-/* desktop (≥1440) */
 @media (min-width: 1440px) {
   .footer-container {
     padding: 24px 64px;
