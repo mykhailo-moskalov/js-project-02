@@ -2,6 +2,7 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import axios from 'axios';
 import { showLoader, hideLoader } from './loader.js';
+import { renderModal, openModal, closeModal } from './furniture-modal.js';
 
 import imgUrl1 from '../img/webp/categories/category-1.webp';
 import imgUrl2 from '../img/webp/categories/category-2.webp';
@@ -67,7 +68,6 @@ const categoryImages = {
     src1x: imgUrl9,
     src2x: bigImgUrl9,
   },
-  // ... repeat for all categories
   10: {
     src1x: imgUrl10,
     src2x: bigImgUrl10,
@@ -85,6 +85,7 @@ const categoryImages = {
     src2x: bigImgUrl13,
   },
 };
+let furnitureList = [];
 // --------------------------- Шаблоны -----------------------------------------
 
 const templateCat = `<li class="furniture-item" id="{idCat}">
@@ -106,7 +107,7 @@ const template2 = `<li class="furniture-card">
     <div class="furniture-card-colors">{colorHtml}</div>
     <p class="furniture-card-cost">{priceFrn} грн</p>
   </div>
-  <button id="{idFrn}" class="furniture-card-button">Детальніше</button>
+  <button data-id="{idFrn}" class="furniture-card-button">Детальніше</button>
 </li>`;
 
 // --------------------------- Запрос категорий ---------------------------------
@@ -200,6 +201,18 @@ function hideLoadMoreButton() {
 async function fetchFurnitures(page, categoryId = '', limit, insert) {
   try {
     const data = await getFurnitures(page, categoryId, limit);
+
+    if (!Array.isArray(data.furnitures)) {
+      throw new Error('Invalid furniture data');
+    }
+
+    // ✅ Reset or append depending on page
+    if (page === 1) {
+      furnitureList = [...data.furnitures]; // reset
+    } else {
+      furnitureList = [...furnitureList, ...data.furnitures]; // append
+    }
+
     await createFurnitureCards(data.furnitures, insert);
     return data;
   } catch (error) {
@@ -209,6 +222,8 @@ async function fetchFurnitures(page, categoryId = '', limit, insert) {
       message: 'Не вдалося завантажити товари. Спробуйте пізніше!',
       position: 'topRight',
     });
+    console.error(error);
+
     return [];
   }
 }
@@ -342,4 +357,24 @@ loadMore.addEventListener('click', () => {
       behavior: 'smooth',
     });
   }
+});
+
+document.addEventListener('click', e => {
+  const button = e.target.closest('.furniture-card-button');
+  if (!button) return;
+
+  const furnitureId = button.dataset.id;
+  const furnitureData = furnitureList.find(item => item._id === furnitureId);
+
+  if (!furnitureData) {
+    iziToast.error({
+      title: 'Помилка',
+      message: 'Товар не знайдено',
+      position: 'topRight',
+    });
+    return;
+  }
+
+  renderModal(furnitureData); // make sure this is imported from modal.js
+  openModal(); // make sure this is imported from modal.js
 });
