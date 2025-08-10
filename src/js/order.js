@@ -6,9 +6,9 @@ const API_URL = 'https://furniture-store.b.goit.study/api/orders';
 
 const orderModal = {
   refs: {
-    openBtn: document.getElementById('test-open-modal'),
-    closeModalBtn: document.querySelector('[data-modal-close]'),
-    modal: document.querySelector('[data-modal]'),
+    openBtn: document.getElementById('[data-order-open]'),
+    closeModalBtn: document.querySelector('[data-order-close]'),
+    modal: document.querySelector('[data-order]'),
     form: document.getElementById('order-form'),
     emailInput: document.getElementById('order-email'),
     phoneInput: document.getElementById('order-phone'),
