@@ -4,7 +4,8 @@ import 'izitoast/dist/css/iziToast.min.css';
 import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
 import { showLoader, hideLoader } from './loader.js';
-import { addToFurnitureList } from './furniture.js';
+import { renderModal, openModal } from './furniture-modal.js';
+import { furnitureList, addToFurnitureList } from './furniture.js';
 
 const popularContainer = document.querySelector('.popular-swiper');
 const popularSwiper = new Swiper(popularContainer, {
@@ -31,6 +32,26 @@ const popularSwiper = new Swiper(popularContainer, {
       slidesPerView: 4,
     },
   },
+});
+
+document.addEventListener('click', e => {
+  const button = e.target.closest('.popular-details-btn');
+  if (!button) return;
+
+  const furnitureId = button.dataset.id;
+  const furnitureData = furnitureList.find(item => item._id === furnitureId);
+
+  if (!furnitureData) {
+    iziToast.error({
+      title: 'Помилка',
+      message: 'Товар не знайдено',
+      position: 'topRight',
+    });
+    return;
+  }
+
+  renderModal(furnitureData);
+  openModal();
 });
 
 initPopular();
