@@ -9,29 +9,45 @@ window.addEventListener('DOMContentLoaded', () => {
 
   if (!menu || !openBtn) return;
 
+
+  const autoSprite = new URL('img/sprite.svg', document.baseURI).pathname;
+  const ds = (openBtn.dataset.sprite || '').trim();
+  const SPRITE = ds && !ds.startsWith('/') ? ds : autoSprite;
   const ICON_CLOSED = (openBtn.dataset.iconClosed || 'menu').trim();
   const ICON_OPEN = (openBtn.dataset.iconOpen || 'x').trim();
 
-  const setBtnIcon = id => {
+  const setBtnIcon = (id) => {
     const svg = openBtn.querySelector('svg');
     if (!svg) return;
     const url = `${spriteUrl}#${id}`;
     const ns = 'http://www.w3.org/2000/svg';
     const xns = 'http://www.w3.org/1999/xlink';
 
-    // видаляємо старий <use>
     const oldUse = svg.querySelector('use');
     if (oldUse) svg.removeChild(oldUse);
 
-    // створюємо новий <use> і ставимо обидва атрибути
     const use = document.createElementNS(ns, 'use');
-    try {
-      use.setAttribute('href', url);
-    } catch (_) {}
-    try {
-      use.setAttributeNS(xns, 'xlink:href', url);
-    } catch (_) {}
+    try { use.setAttribute('href', url); } catch (_) {}
+    try { use.setAttributeNS(xns, 'xlink:href', url); } catch (_) {}
     svg.appendChild(use);
+  };
+
+  const isTablet = () => window.innerWidth >= 768 && window.innerWidth < 1440;
+
+  let outsideHandler = null;
+  const addOutside = () => {
+    if (outsideHandler || !isTablet()) return;
+    outsideHandler = (e) => {
+      const inside = menu.contains(e.target);
+      const onToggle = openBtn.contains(e.target) || (closeBtn && closeBtn.contains(e.target));
+      if (!inside && !onToggle) close();
+    };
+    document.addEventListener('click', outsideHandler, true);
+  };
+  const removeOutside = () => {
+    if (!outsideHandler) return;
+    document.removeEventListener('click', outsideHandler, true);
+    outsideHandler = null;
   };
 
   const open = () => {
@@ -41,6 +57,7 @@ window.addEventListener('DOMContentLoaded', () => {
     body.classList.add('no-scroll');
     setBtnIcon(ICON_OPEN);
     openBtn.setAttribute('aria-label', 'Закрити меню');
+    addOutside();
   };
 
   const close = () => {
@@ -50,9 +67,10 @@ window.addEventListener('DOMContentLoaded', () => {
     body.classList.remove('no-scroll');
     setBtnIcon(ICON_CLOSED);
     openBtn.setAttribute('aria-label', 'Відкрити меню');
+    removeOutside();
   };
 
-  openBtn.addEventListener('click', e => {
+  openBtn.addEventListener('click', (e) => {
     e.preventDefault();
     const expanded = openBtn.getAttribute('aria-expanded') === 'true';
     expanded ? close() : open();
@@ -60,19 +78,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   if (closeBtn) closeBtn.addEventListener('click', close);
   links.forEach(a => a.addEventListener('click', close));
-  window.addEventListener('keydown', e => {
-    if (e.key === 'Escape') close();
-  });
-
-  // Закриття кліком поза меню на таблеті
-  document.addEventListener('click', e => {
-    const w = window.innerWidth;
-    if (w >= 768 && w < 1440 && menu.classList.contains('is-open')) {
-      const inside = menu.contains(e.target);
-      const onToggle = openBtn.contains(e.target) || (closeBtn && closeBtn.contains(e.target));
-      if (!inside && !onToggle) close();
-    }
-  });
+  window.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
 
   setBtnIcon(ICON_CLOSED);
 });

@@ -2,7 +2,7 @@
   <div class="container header-container">
     <a class="header__logo" href="./index.html" aria-label="На головну">
       <svg class="header__logo-icon" width="28" height="28" aria-hidden="true">
-        <use href="/img/sprite.svg#logo"></use>
+        <use href="img/sprite.svg#logo"></use>
       </svg>
       <span class="header__brand">Меблерія</span>
     </a>
@@ -33,36 +33,38 @@
         <use href="/img/sprite.svg#menu"></use>
       </svg>
     </button>
-  </div>
 
-  <div class="mobile-menu" id="mobile-menu" data-mobile-menu aria-hidden="true">
-    <div class="mobile-menu__head">
-      <a href="./index.html" class="mobile-menu__logo" aria-label="На головну">
-        <svg class="header__logo-icon" width="28" height="28" aria-hidden="true">
-          <use href="/img/sprite.svg#logo"></use>
-        </svg>
-        <span class="mobile-menu__brand">Меблерія</span>
-      </a>
-      <button
-        class="mobile-menu__close btn btn--icon"
-        type="button"
-        data-mobile-menu-close
-        aria-label="Закрити меню"
+    <div class="mobile-menu" id="mobile-menu" data-mobile-menu aria-hidden="true">
+      <div class="mobile-menu__head">
+        <a href="./index.html" class="mobile-menu__logo" aria-label="На головну">
+          <svg class="header__logo-icon" width="28" height="28" aria-hidden="true">
+            <use href="/img/sprite.svg#logo"></use>
+          </svg>
+          <span class="mobile-menu__brand">Меблерія</span>
+        </a>
+        <button
+          class="mobile-menu__close btn btn--icon"
+          type="button"
+          data-mobile-menu-close
+          aria-label="Закрити меню"
+        >
+          <svg class="mobile-menu__close-icon" width="20" height="20" aria-hidden="true">
+            <use href="/img/sprite.svg#x"></use>
+          </svg>
+        </button>
+      </div>
+
+      <ul class="mobile-menu__nav">
+        <li><a class="mobile-menu__link" href="#furniture">Наші меблі</a></li>
+        <li><a class="mobile-menu__link" href="#about">Про нас</a></li>
+        <li><a class="mobile-menu__link" href="#popular">Популярне</a></li>
+        <li><a class="mobile-menu__link" href="#faq">Часті питання</a></li>
+        <li><a class="mobile-menu__link" href="#feedback">Відгуки</a></li>
+      </ul>
+
+      <a class="mobile-menu__cta mobile-menu__link btn btn--primary" href="#furniture"
+        >До покупок</a
       >
-        <svg class="mobile-menu__close-icon" width="20" height="20" aria-hidden="true">
-          <use href="/img/sprite.svg#x"></use>
-        </svg>
-      </button>
     </div>
-
-    <ul class="mobile-menu__nav">
-      <li><a class="mobile-menu__link" href="#furniture">Наші меблі</a></li>
-      <li><a class="mobile-menu__link" href="#about">Про нас</a></li>
-      <li><a class="mobile-menu__link" href="#popular">Популярне</a></li>
-      <li><a class="mobile-menu__link" href="#faq">Часті питання</a></li>
-      <li><a class="mobile-menu__link" href="#feedback">Відгуки</a></li>
-    </ul>
-
-    <a class="mobile-menu__cta mobile-menu__link btn btn--primary" href="#furniture">До покупок</a>
   </div>
 </header>
