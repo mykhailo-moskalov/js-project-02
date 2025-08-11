@@ -24,7 +24,6 @@ document.addEventListener('click', async e => {
 
 export function renderModal(el) {
   modalWindow.innerHTML = `
-    <span class="modal-loader loader hidden"></span>
     <button class="modal-close-btn" type="button" id="modal-close-btn" data-modal-close>
       <svg class="modal-icon" width="32" height="32">
         <use href="${spriteUrl}#x"></use>
@@ -122,9 +121,7 @@ export function openModal() {
 export function closeModal() {
   document.body.style.overflow = 'auto';
   modalBackdrop.classList.add('visually-hidden');
-  modalWindow.innerHTML = `
-      <span class="loader hidden modal-loader"></span>
-    `;
+  modalWindow.innerHTML = ``;
 }
 
 modalBackdrop.addEventListener('click', e => {
