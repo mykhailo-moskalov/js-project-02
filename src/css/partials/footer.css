@@ -1,10 +1,7 @@
 .footer {
   background: var(--color-madang);
   color: var(--color-white);
-}
-
-.footer a {
-  color: inherit;
+  text-align: center;
 }
 
 .footer__logo-icon,
@@ -13,23 +10,39 @@
 }
 
 .footer-container {
-  padding: 20px 0;
-  display: grid;
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
   justify-items: center;
-  gap: 80px;
+  padding-bottom: 32px;
+}
+
+.footer-logo-container {
+  padding: 24px 4px;
+}
+
+.footer__nav {
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 400px;
+  color: #fff;
+  display: flex;
+  gap: 32px;
+  text-align: center;
+  flex-direction: column;
 }
 
 .footer__logo {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  min-height: 98px;
+  width: 100%;
+  gap: 8px;
 }
 
 .footer__logo-icon {
-  width: 56px;
-  height: 56px;
+  width: 50px;
+  height: 50px;
   flex: 0 0 auto;
   color: var(--color-white);
   transform: scale(0.95);
@@ -42,16 +55,6 @@
   color: var(--color-white);
 }
 
-.footer__nav {
-  display: grid;
-  gap: 24px;
-  text-align: center;
-}
-
-.footer__link {
-  line-height: 160%;
-}
-
 .footer__link:hover,
 .footer__link:focus,
 .footer__link:focus-visible,
@@ -62,156 +65,61 @@
 }
 
 .footer__socials {
-  display: inline-flex;
-  gap: 24px;
-}
-
-.footer__social {
-  display: inline-flex;
-  width: 40px;
-  height: 40px;
-  align-items: center;
+  display: flex;
   justify-content: center;
+  gap: 24px;
+
+  transition: all 200ms ease-in-out;
 }
 
 .footer__socials .footer__social use[href$='#instagram'] {
-  fill: #210b08 !important;
+  fill: #080c09;
 }
 
 .footer__copy {
-  opacity: 0.9;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.6;
   text-align: center;
+
+  color: #fff;
 }
 
-@media (min-width: 768px) and (max-width: 899.98px) {
-  .footer-container {
-    padding: 32px 0;
-    gap: 80px;
-  }
-
+@media screen and (min-width: 768px) {
   .footer__nav {
-    display: flex;
-    gap: 32px;
-    flex-wrap: wrap;
     justify-content: center;
+    flex-direction: row;
   }
 
-  .footer__logo {
-    min-height: 0;
-    justify-content: flex-start;
-    gap: 8px;
-  }
-
-  .footer__logo-icon {
-    width: 28px;
-    height: 28px;
-  }
-
-  .footer__brand {
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 26px;
+  .footer__copy {
+    font-size: 14px;
   }
 }
-
-@media (min-width: 900px) and (max-width: 1439.98px) {
+@media screen and (min-width: 1440px) {
   .footer-container {
-    padding: 32px 0;
-    display: flex;
-    align-items: center;
     gap: 80px;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 0;
   }
 
   .footer__logo {
     order: 0;
-    min-height: 0;
-    justify-content: flex-start;
-    gap: 8px;
-  }
-
-  .footer__logo-icon {
-    width: 28px;
-    height: 28px;
-  }
-
-  .footer__brand {
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 26px;
-  }
-
-  .footer__copy {
-    order: 1;
-    text-align: left;
-    opacity: 0.9;
-    font-size: 14px;
-    line-height: 22px;
-    margin-right: auto;
   }
 
   .footer__nav {
     order: 2;
-    display: flex;
     align-items: center;
-    gap: 32px;
-    text-align: left;
+    justify-content: flex-start;
   }
 
   .footer__socials {
     order: 3;
-    gap: 24px;
-  }
-}
-
-@media (min-width: 1440px) {
-  .footer-container {
-    padding: 24px 64px;
-    height: 98px;
-    display: flex;
-    align-items: center;
-    gap: 80px;
-    max-width: 1312px;
-    margin: 0 auto;
-  }
-
-  .footer__logo {
-    order: 0;
-    min-height: 0;
-    justify-content: flex-start;
-    gap: 8px;
-  }
-
-  .footer__logo-icon {
-    width: 28px;
-    height: 28px;
-  }
-
-  .footer__brand {
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 26px;
   }
 
   .footer__copy {
     order: 1;
-    text-align: left;
-    opacity: 0.9;
-    font-size: 14px;
-    line-height: 22px;
-    margin-right: auto;
-  }
-
-  .footer__nav {
-    order: 2;
-    display: flex;
-    align-items: center;
-    gap: 32px;
-  }
-
-  .footer__socials {
-    order: 3;
-    gap: 24px;
+    width: 314px;
   }
 }
