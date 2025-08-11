@@ -114,6 +114,31 @@ const template2 = `<li class="furniture-card">
   <button data-id="{idFrn}" class="furniture-card-button" data-open-modal>Детальніше</button>
 </li>`;
 
+// --------------------------- контроль загрузки картинок -----------------------
+function waitForImagesToLoad(furnitureCards, show) {
+  const images = furnitureCards.querySelectorAll('img');
+  let loadedImages = 0;
+
+  if (images.length > 0) {
+    images.forEach(img => {
+      img.onload = () => {
+        loadedImages++;
+        if (loadedImages === show) {
+          hideLoader('.furniture-loader');
+        }
+      };
+      img.onerror = () => {
+        loadedImages++;
+        if (loadedImages === show) {
+          hideLoader('.furniture-loader');
+        }
+      };
+    });
+  } else {
+    hideLoader('.furniture-loader');
+  }
+}
+
 // --------------------------- Запрос категорий ---------------------------------
 async function getCategoriesByQuery(query, page, perPage) {
   try {
@@ -253,7 +278,6 @@ async function createFurnitureCards(furnitures, insert) {
 
   const furnitureCards = document.querySelector(insert);
   furnitureCards.insertAdjacentHTML('beforeend', markup2);
-  showLoadMoreButton();
 }
 
 // --------------------------- Функция для управления бордюров -----------------------
@@ -284,18 +308,23 @@ showLoader('.furniture-loader');
 fetchCategories();
 fetchFurnitures(currentPage, currentCategoryId, limit, '.furniture-cards').then(data => {
   const remainingItems = data.totalItems - currentPage * limit;
-  loadMore.textContent = `Показати ще ${limit} з ${remainingItems}`;
+  const show = limit <= remainingItems ? limit : remainingItems;
+  const remainingItems1 = data.totalItems - (currentPage - 1) * limit;
+  const show1 = limit <= remainingItems1 ? limit : remainingItems1;
+  showLoadMoreButton();
+  loadMore.textContent = `Показати ще ${show} з ${remainingItems}`;
+  // проверяем загрузку картинок для выключения лодыря
+  const furnitureCards = document.querySelector('.furniture-cards');
+  waitForImagesToLoad(furnitureCards, show1);
+
   if (currentPage * limit >= data.totalItems) {
     hideLoadMoreButton();
 
-    if (data.totalItems >= limit) {
-      iziToast.info({
-        message: 'Вибачте, але ви досягли кінця результатів пошуку.',
-        position: 'topRight',
-      });
-    }
+    iziToast.info({
+      message: 'Вибачте, але ви досягли кінця результатів пошуку.',
+      position: 'topRight',
+    });
   }
-  hideLoader('.furniture-loader');
 });
 
 // Работа
@@ -312,18 +341,22 @@ furnitureCategories.addEventListener('click', event => {
     setBorder(currentCategoryId); // Установка бордюра после загрузки
     const remainingItems = data.totalItems - currentPage * limit;
     let show = limit <= remainingItems ? limit : remainingItems;
+    const remainingItems1 = data.totalItems - (currentPage - 1) * limit;
+    const show1 = limit <= remainingItems1 ? limit : remainingItems1;
+    showLoadMoreButton();
     loadMore.textContent = `Показати ще ${show} з ${remainingItems}`;
+    // проверяем загрузку картинок для выключения лодыря
+    const furnitureCards = document.querySelector('.furniture-cards');
+    waitForImagesToLoad(furnitureCards, show1);
+
     if (currentPage * limit >= data.totalItems) {
       hideLoadMoreButton();
 
-      if (data.totalItems >= limit) {
-        iziToast.info({
-          message: 'Вибачте, але ви досягли кінця результатів пошуку.',
-          position: 'topRight',
-        });
-      }
+      iziToast.info({
+        message: 'Вибачте, але ви досягли кінця результатів пошуку.',
+        position: 'topRight',
+      });
     }
-    hideLoader('.furniture-loader');
   });
 });
 
@@ -336,18 +369,22 @@ loadMore.addEventListener('click', () => {
   fetchFurnitures(currentPage, currentCategoryId, limit, '.furniture-cards').then(data => {
     const remainingItems = data.totalItems - currentPage * limit;
     let show = limit <= remainingItems ? limit : remainingItems;
+    const remainingItems1 = data.totalItems - (currentPage - 1) * limit;
+    const show1 = limit <= remainingItems1 ? limit : remainingItems1;
+    showLoadMoreButton();
     loadMore.textContent = `Показати ще ${show} з ${remainingItems}`;
+    // проверяем загрузку картинок для выключения лодыря
+    const furnitureCards = document.querySelector('.furniture-cards');
+    waitForImagesToLoad(furnitureCards, show1);
+
     if (currentPage * limit >= data.totalItems) {
       hideLoadMoreButton();
 
-      if (data.totalItems >= limit) {
-        iziToast.info({
-          message: 'Вибачте, але ви досягли кінця результатів пошуку.',
-          position: 'topRight',
-        });
-      }
+      iziToast.info({
+        message: 'Вибачте, але ви досягли кінця результатів пошуку.',
+        position: 'topRight',
+      });
     }
-    hideLoader('.furniture-loader');
   });
   const firstcard = document.querySelector('.furniture-card');
 
