@@ -8,6 +8,7 @@
   align-items: center;
   opacity: 1;
   visibility: visible;
+  pointer-events: all;
   transition: all 200ms ease-in-out;
 }
 
@@ -20,7 +21,6 @@
 .order-modal {
   position: relative;
   width: 100%;
-  max-width: 335px;
   padding: 66px;
   background-color: var(--color-scheme-1-background);
   border-radius: 8px;
@@ -53,7 +53,6 @@
 .order-modal {
   position: relative;
   width: 100%;
-  max-width: 375px;
   margin: auto 20px;
   padding: 64px 20px;
   background-color: var(--color-scheme-1-background);

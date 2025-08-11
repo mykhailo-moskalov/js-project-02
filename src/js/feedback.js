@@ -10,14 +10,14 @@ import { showLoader, hideLoader } from './loader.js';
 const feedbackContainer = document.querySelector('.feedback-swiper');
 const feedbackSwiper = new Swiper(feedbackContainer, {
   pagination: {
-    el: '.swiper-pagination',
+    el: '.feedback .swiper-pagination',
     clickable: true,
     dynamicBullets: true,
   },
 
   navigation: {
-    prevEl: '.swiper-button-prev',
-    nextEl: '.swiper-button-next',
+    prevEl: '.feedback .swiper-button-prev',
+    nextEl: '.feedback .swiper-button-next',
   },
 
   slidesPerView: 1,
@@ -37,7 +37,7 @@ const feedbackSwiper = new Swiper(feedbackContainer, {
 initFeedback();
 
 async function initFeedback() {
-  showLoader();
+  showLoader('.feedback-loader');
 
   try {
     const data = await getFeedbackList();
@@ -52,7 +52,7 @@ async function initFeedback() {
 
     console.error('Error fetching feedback:', error);
   } finally {
-    hideLoader();
+    hideLoader('.feedback-loader');
   }
 }
 
@@ -69,7 +69,9 @@ async function createFeedbackList(data) {
 `
     )
     .join('');
-  feedbackContainer.querySelector('.swiper-wrapper').insertAdjacentHTML('beforeend', markup);
+  feedbackContainer
+    .querySelector('.feedback .swiper-wrapper')
+    .insertAdjacentHTML('beforeend', markup);
   document.querySelectorAll('.rating-list').forEach(item => {
     const score = parseFloat(item.dataset.score);
 
@@ -94,7 +96,7 @@ async function getFeedbackList() {
     const response = await axios.get('https://furniture-store.b.goit.study/api/feedbacks', {
       params: {
         page: 1,
-        limit: 10,
+        limit: 25,
       },
     });
 

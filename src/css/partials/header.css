@@ -12,7 +12,6 @@
   fill: currentColor;
 }
 
-/* контейнер шапки */
 .header-container {
   position: relative;
   display: flex;
@@ -20,7 +19,6 @@
   justify-content: space-between;
 }
 
-/* логотип в шапке */
 .header__logo,
 .mobile-menu__logo {
   display: inline-flex;
@@ -38,7 +36,6 @@
   color: var(--color-neutral-darkest);
 }
 
-/* навигация десктоп */
 .header__nav {
   display: none;
   align-items: center;
@@ -55,11 +52,12 @@
   color: var(--color-neutral-darkest);
 }
 .header__link:hover,
-.header__cta:hover {
+.header__link:focus,
+.header__cta:hover,
+.header__cta:focus {
   opacity: 0.85;
 }
 
-/* Buttons (UI kit) */
 .btn {
   --btn-bg: transparent;
   --btn-fg: var(--color-neutral-darkest);
@@ -105,21 +103,19 @@
   fill: currentColor;
 }
 
-/* основная кнопка */
 .btn--primary {
   --btn-bg: var(--color-madang);
   --btn-fg: var(--color-white);
   --btn-bw: 0px;
   --btn-bc: transparent;
   background: var(--btn-bg);
-  color: var(--btn-fg);
+  color: var(--btn-fg) !important;
   border: none;
   box-shadow: 0 1px 2px var(--opacity-neutral-darkest-05), inset 0 32px 24px var(--opacity-white-05),
     inset 0 2px 1px var(--opacity-white-25), inset 0 0 0 1px var(--opacity-neutral-darkest-15),
     inset 0 -2px 1px var(--opacity-neutral-darkest-20);
 }
 
-/* икон-кнопки (бургер/закрыть) */
 .btn--icon {
   width: 40px;
   height: 40px;
@@ -133,9 +129,7 @@
 .btn--icon:focus-visible {
   background: var(--opacity-neutral-darkest-05);
 }
-/* ===== /Buttons ===== */
 
-/* мобильное полноэкранное меню (375–767) */
 .mobile-menu {
   position: fixed;
   inset: 0;
@@ -159,7 +153,6 @@
   justify-content: space-between;
 }
 
-/* список ссылок в меню */
 .mobile-menu__nav {
   display: grid;
   gap: 32px;
@@ -175,7 +168,6 @@
   color: var(--color-neutral-darkest);
 }
 
-/* CTA в меню */
 .mobile-menu__cta {
   color: var(--color-white);
   width: 249px;
@@ -183,7 +175,6 @@
   align-self: center;
 }
 
-/* focus-видимость */
 .header__logo:focus-visible,
 .header__link:focus-visible,
 .mobile-menu__link:focus-visible,
@@ -196,7 +187,6 @@
   overflow: hidden;
 }
 
-/* tablet portrait (768–899) — карточка справа под шапкой */
 @media (min-width: 768px) and (max-width: 899.98px) {
   .mobile-menu {
     position: absolute;
@@ -210,9 +200,11 @@
     opacity: 0;
     pointer-events: none;
   }
+
   .mobile-menu__nav {
     justify-items: end;
   }
+
   .mobile-menu.is-open {
     transform: translateY(0);
     opacity: 1;
@@ -226,7 +218,6 @@
   }
 }
 
-/* tablet landscape (900–1439) — ширше */
 @media (min-width: 900px) and (max-width: 1439.98px) {
   .mobile-menu {
     position: absolute;
@@ -250,10 +241,9 @@
   }
   .mobile-menu__cta {
     width: 298px;
-  } /* ширина CTA для horizontal tablet */
+
 }
 
-/* desktop (≥1440) */
 @media (min-width: 1440px) {
   .header__nav {
     display: inline-flex;
