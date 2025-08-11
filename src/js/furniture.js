@@ -2,7 +2,7 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import axios from 'axios';
 import { showLoader, hideLoader } from './loader.js';
-import { renderModal, openModal, closeModal } from './furniture-modal.js';
+import { renderModal, openModal } from './furniture-modal.js';
 
 import imgUrl1 from '../img/webp/categories/category-1.webp';
 import imgUrl2 from '../img/webp/categories/category-2.webp';

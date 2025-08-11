@@ -20,28 +20,6 @@ const galleryLightbox = new SimpleLightbox('div.gallery a', {
 document.addEventListener('click', async e => {
   const button = e.target.closest('[data-id]');
   if (!button) return;
-
-  const furnitureId = button.getAttribute('data-id'); // ← Виправлено
-
-  showLoader('.modal-loader');
-  try {
-    const response = await axios.get(
-      `https://furniture-store.b.goit.study/api/furnitures/${furnitureId}`
-    );
-    const furnitureData = response.data;
-
-    renderModal(furnitureData); // Your modal rendering function
-    openModal(); // Your modal open function
-  } catch (error) {
-    iziToast.error({
-      title: 'Помилка',
-      message: 'Не вдалося завантажити деталі товару',
-      position: 'topRight',
-    });
-    console.error(error);
-  } finally {
-    hideLoader('.modal-loader');
-  }
 });
 
 export function renderModal(el) {
