@@ -241,17 +241,17 @@
   }
   .mobile-menu__cta {
     width: 298px;
-
-}
-
-@media (min-width: 1440px) {
-  .header__nav {
-    display: inline-flex;
   }
-  .header__cta {
-    display: inline-flex;
-  }
-  .header__burger {
-    display: none;
+
+  @media (min-width: 1440px) {
+    .header__nav {
+      display: inline-flex;
+    }
+    .header__cta {
+      display: inline-flex;
+    }
+    .header__burger {
+      display: none;
+    }
   }
 }
