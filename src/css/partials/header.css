@@ -243,15 +243,30 @@
     width: 298px;
   }
 
-  @media (min-width: 1440px) {
-    .header__nav {
-      display: inline-flex;
-    }
-    .header__cta {
-      display: inline-flex;
-    }
-    .header__burger {
-      display: none;
-    }
+  .mobile-menu.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .mobile-menu__head {
+    display: none; }
+  .mobile-menu__cta {
+    width: 298px; } /* ширина CTA для horizontal tablet */
+}
+
+/* desktop (≥1440) */
+@media (min-width: 1440px) {
+  .header__nav {
+    display: inline-flex;
+  }
+  .header__cta {
+    display: inline-flex;
+  }
+  .header__burger {
+    display: none;
+  }
+  .mobile-menu {
+    display: none !important;
   }
 }
+
