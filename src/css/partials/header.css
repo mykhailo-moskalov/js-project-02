@@ -227,6 +227,6 @@
   .header__nav { display: inline-flex; }
   .header__cta { display: inline-flex; }
   .header__burger { display: none; }
-  .mobile-menu { display: none; }
+  .mobile-menu { display: none !important; }
 }
 
