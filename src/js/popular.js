@@ -21,7 +21,7 @@ const popularSwiper = new Swiper(popularContainer, {
   },
 
   slidesPerView: 1,
-  spaceBetween: 16,
+  spaceBetween: 24,
 
   breakpoints: {
     768: {
