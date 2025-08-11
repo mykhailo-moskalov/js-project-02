@@ -4,6 +4,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
 import { showLoader, hideLoader } from './loader.js';
+import { addToFurnitureList } from './furniture.js';
 
 const popularContainer = document.querySelector('.popular-swiper');
 const popularSwiper = new Swiper(popularContainer, {
@@ -41,6 +42,8 @@ async function initPopular() {
     const data = await getPopularList();
     createPopularList(data);
     popularSwiper.update();
+
+    addToFurnitureList(data);
   } catch (error) {
     iziToast.error({
       title: 'Помилка',
@@ -69,21 +72,12 @@ async function createPopularList(data) {
           <ul class="popular-color">${colorHtml}</ul>
           <p class="popular-slide-price">${el.price} грн</p>
         </div>
-        <button id="${el._id}" class="popular-details-btn">Детальніше</button>
+        <button data-id="${el._id}" class="popular-details-btn" data-open-modal>Детальніше</button>
       </li>`;
     })
     .join('');
 
   wrapper.insertAdjacentHTML('beforeend', markup);
-
-  // для модалки
-  //
-  // wrapper.querySelectorAll('.popular-details-btn').forEach(btn => {
-  //   btn.addEventListener('click', e => {
-  //     const itemId = e.target.dataset.id;
-  //     openItemDetails(itemId);
-  //   });
-  // });
 }
 
 async function getPopularList() {

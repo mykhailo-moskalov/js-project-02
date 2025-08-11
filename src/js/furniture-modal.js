@@ -6,19 +6,24 @@ import 'raty-js/src/raty.css';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { showLoader, hideLoader } from './loader.js';
+import { orderModal } from './order.js';
+import spriteUrl from '../img/sprite.svg';
 
 const modalBackdrop = document.querySelector('[data-modal-bg]');
-const modalWindow = document.querySelector('.modal'); // outer containerconst modalWindow = document.querySelector('.modal-window');
-const galleryLightbox = new SimpleLightbox('div.gallery a');
+const modalWindow = document.querySelector('.modal-window');
+const galleryLightbox = new SimpleLightbox('div.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+  download: true,
+});
 
 document.addEventListener('click', async e => {
-  const button = e.target.closest('.furniture-card-button');
+  const button = e.target.closest('[data-id]');
   if (!button) return;
 
-  const furnitureId = e.target.dataset.id;
+  const furnitureId = button.getAttribute('data-id'); // ← Виправлено
 
   showLoader('.modal-loader');
-
   try {
     const response = await axios.get(
       `https://furniture-store.b.goit.study/api/furnitures/${furnitureId}`
@@ -33,7 +38,7 @@ document.addEventListener('click', async e => {
       message: 'Не вдалося завантажити деталі товару',
       position: 'topRight',
     });
-    console.error('Modal fetch error:', error);
+    console.error(error);
   } finally {
     hideLoader('.modal-loader');
   }
@@ -44,7 +49,7 @@ export function renderModal(el) {
     <span class="modal-loader loader hidden"></span>
     <button class="modal-close-btn" type="button" id="modal-close-btn" data-modal-close>
       <svg class="modal-icon" width="32" height="32">
-        <use href="/img/sprite.svg#x"></use>
+        <use href="${spriteUrl}#x"></use>
       </svg>
     </button>
     <div class="gallery">
@@ -59,28 +64,51 @@ export function renderModal(el) {
         )
         .join('')}
     </div>
-    <h3 class="modal-name">${el.name}</h3>
-    <p class="modal-category">${el.category.name}</p>
-    <div class="modal-info">
-      <p class="modal-slide-price">${el.price} грн</p>
-      <div class="rating-list" data-score="${el.rate}"></div>
-      <ul class="modal-color">
-        ${el.color
-          .map(
-            (color, index) => `
-          <li class="modal-color-item${index === 0 ? ' active' : ''}" 
-              style="background-color: ${color};" 
-              data-color="${color}"></li>`
-          )
-          .join('')}
-      </ul>
-      <p class="modal-descr">${el.description}</p>
-      <p class="modal-sizes">${el.sizes}</p>
-      <button type="button" class="modal-btn" data-order-open>Перейти до замовлення</button>
+    <div class="modal-bottom-right">
+        <h3 class="modal-name">${el.name}</h3>
+        <p class="modal-category">${el.category.name}</p>
+        <h4 class="modal-slide-price">${el.price} грн</h4>
+        <div class="rating-list" data-score="${el.rate}"></div>
+        <p class="modal-color-title">Колір</p>
+        <ul class="modal-color">
+          ${el.color
+            .map(
+              (color, index) => `
+            <li class="modal-color-item">
+                <label class="color-label">
+                    <input
+                      type="radio"
+                      name="color"
+                      value="${color}"
+                      class="modal-color-radio"
+                      ${index === 0 ? 'checked' : ''}
+                    />
+                    <span
+                      class="color-circle ${index === 0 ? 'active' : ''}"
+                      style="background-color: ${color};">
+                    </span>
+                </label>
+            </li>`
+            )
+            .join('')}
+        </ul>
+        <p class="modal-descr">${el.description}</p>
+        <p class="modal-sizes">Розміри: ${el.sizes}</p>
+        <button type="button" class="modal-btn" data-order-open>Перейти до замовлення</button>
     </div>
   `;
 
   modalWindow.querySelector('[data-modal-close]').addEventListener('click', closeModal);
+
+  const colorRadios = modalWindow.querySelectorAll('.modal-color-radio');
+  const colorCircles = modalWindow.querySelectorAll('.color-circle');
+
+  colorRadios.forEach((radio, index) => {
+    radio.addEventListener('change', () => {
+      colorCircles.forEach(circle => circle.classList.remove('active'));
+      colorCircles[index].classList.add('active');
+    });
+  });
 
   new Raty(document.querySelector('.rating-list'), {
     readOnly: true,
@@ -102,8 +130,8 @@ export function renderModal(el) {
   // Order button logic
   modalWindow.querySelector('[data-order-open]').addEventListener('click', () => {
     closeModal();
-    // trigger order modal here
-    document.dispatchEvent(new CustomEvent('openOrderModal'));
+    orderModal.init();
+    orderModal.openModal();
   });
 }
 
@@ -116,10 +144,12 @@ export function openModal() {
 export function closeModal() {
   document.body.style.overflow = 'auto';
   modalBackdrop.classList.add('visually-hidden');
-  modalWindow.innerHTML = ''; // Clear modal content
+  modalWindow.innerHTML = `
+      <span class="loader hidden modal-loader"></span>
+    `;
 }
 
-modal.addEventListener('click', e => {
+modalBackdrop.addEventListener('click', e => {
   if (e.target === modalBackdrop) closeModal();
 });
 document.addEventListener('keydown', e => {

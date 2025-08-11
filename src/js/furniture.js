@@ -85,7 +85,11 @@ const categoryImages = {
     src2x: bigImgUrl13,
   },
 };
-let furnitureList = [];
+export let furnitureList = [];
+export function addToFurnitureList(items) {
+  furnitureList = [...furnitureList, ...items];
+}
+
 // --------------------------- Шаблоны -----------------------------------------
 
 const templateCat = `<li class="furniture-item" id="{idCat}">
@@ -107,7 +111,7 @@ const template2 = `<li class="furniture-card">
     <div class="furniture-card-colors">{colorHtml}</div>
     <p class="furniture-card-cost">{priceFrn} грн</p>
   </div>
-  <button data-id="{idFrn}" class="furniture-card-button">Детальніше</button>
+  <button data-id="{idFrn}" class="furniture-card-button" data-open-modal>Детальніше</button>
 </li>`;
 
 // --------------------------- Запрос категорий ---------------------------------
@@ -360,7 +364,7 @@ loadMore.addEventListener('click', () => {
 });
 
 document.addEventListener('click', e => {
-  const button = e.target.closest('.furniture-card-button');
+  const button = e.target.closest('[data-id]');
   if (!button) return;
 
   const furnitureId = button.dataset.id;
