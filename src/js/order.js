@@ -19,41 +19,34 @@ export const orderModal = {
   modelId: '682f9bbf8acbdf505592ac36',
   color: '#1212ca',
 
+  listeners: {},
+
   init() {
-    this.refs.closeModalBtn.addEventListener('click', this.closeModal.bind(this));
-    this.refs.modal.addEventListener('click', this.backdropClick.bind(this));
-    document.addEventListener('keydown', this.keydownHandler.bind(this));
-    this.refs.form.addEventListener('submit', this.handleSubmit.bind(this));
-
-    // Додаємо обробники подій для динамічної валідації
-    this.refs.emailInput.addEventListener('input', this.validateEmail.bind(this));
-    this.refs.phoneInput.addEventListener('input', this.validatePhone.bind(this));
-    this.refs.commentInput.addEventListener('input', this.validateComment.bind(this));
-
-    IMask(orderModal.refs.phoneInput, {
+    IMask(this.refs.phoneInput, {
       mask: '+38 (0\\00) 000 00 00',
     });
-  },
-
-  checkElements() {
-    const requiredElements = [
-      this.refs.closeModalBtn,
-      this.refs.modal,
-      this.refs.form,
-      this.refs.emailInput,
-      this.refs.phoneInput,
-      this.refs.emailError,
-      this.refs.phoneError,
-      this.refs.commentInput,
-      this.refs.commentError,
-    ];
-
-    return requiredElements.every(el => el !== null);
   },
 
   openModal() {
     document.body.style.overflow = 'hidden';
     this.refs.modal.classList.remove('visually-hidden');
+
+    // Bind listeners
+    this.listeners.close = this.closeModal.bind(this);
+    this.listeners.backdrop = this.backdropClick.bind(this);
+    this.listeners.keydown = this.keydownHandler.bind(this);
+    this.listeners.submit = this.handleSubmit.bind(this);
+    this.listeners.email = this.validateEmail.bind(this);
+    this.listeners.phone = this.validatePhone.bind(this);
+    this.listeners.comment = this.validateComment.bind(this);
+
+    this.refs.closeModalBtn.addEventListener('click', this.listeners.close);
+    this.refs.modal.addEventListener('click', this.listeners.backdrop);
+    document.addEventListener('keydown', this.listeners.keydown);
+    this.refs.form.addEventListener('submit', this.listeners.submit);
+    this.refs.emailInput.addEventListener('input', this.listeners.email);
+    this.refs.phoneInput.addEventListener('input', this.listeners.phone);
+    this.refs.commentInput.addEventListener('input', this.listeners.comment);
   },
 
   closeModal() {
@@ -61,6 +54,17 @@ export const orderModal = {
     this.refs.modal.classList.add('visually-hidden');
     this.refs.form.reset();
     this.clearValidationStyles();
+
+    // Unbind listeners
+    this.refs.closeModalBtn.removeEventListener('click', this.listeners.close);
+    this.refs.modal.removeEventListener('click', this.listeners.backdrop);
+    document.removeEventListener('keydown', this.listeners.keydown);
+    this.refs.form.removeEventListener('submit', this.listeners.submit);
+    this.refs.emailInput.removeEventListener('input', this.listeners.email);
+    this.refs.phoneInput.removeEventListener('input', this.listeners.phone);
+    this.refs.commentInput.removeEventListener('input', this.listeners.comment);
+
+    this.listeners = {};
   },
 
   backdropClick(e) {

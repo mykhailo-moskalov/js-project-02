@@ -34,7 +34,7 @@ const popularSwiper = new Swiper(popularContainer, {
   },
 });
 
-document.addEventListener('click', e => {
+function handlePopularClick(e) {
   const button = e.target.closest('.popular-details-btn');
   if (!button) return;
 
@@ -52,7 +52,7 @@ document.addEventListener('click', e => {
 
   renderModal(furnitureData);
   openModal();
-});
+}
 
 initPopular();
 
@@ -65,6 +65,11 @@ async function initPopular() {
     popularSwiper.update();
 
     addToFurnitureList(data);
+
+    if (!window._popularClickBound) {
+      document.addEventListener('click', handlePopularClick);
+      window._popularClickBound = true;
+    }
   } catch (error) {
     iziToast.error({
       title: 'Помилка',
