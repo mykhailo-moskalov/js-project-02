@@ -118,7 +118,7 @@ const template2 = `<li class="furniture-card">
 function waitForImagesToLoad(furnitureCards, show) {
   const images = furnitureCards.querySelectorAll('img');
   let loadedImages = 0;
-  
+
   if (images.length > 0) {
     images.forEach(img => {
       img.onload = () => {
@@ -309,22 +309,21 @@ fetchCategories();
 fetchFurnitures(currentPage, currentCategoryId, limit, '.furniture-cards').then(data => {
   const remainingItems = data.totalItems - currentPage * limit;
   const show = limit <= remainingItems ? limit : remainingItems;
-  const remainingItems1 = data.totalItems - (currentPage-1) * limit;
+  const remainingItems1 = data.totalItems - (currentPage - 1) * limit;
   const show1 = limit <= remainingItems1 ? limit : remainingItems1;
   showLoadMoreButton();
-    loadMore.textContent = `Показати ще ${show} з ${remainingItems}`;
+  loadMore.textContent = `Показати ще ${show} з ${remainingItems}`;
   // проверяем загрузку картинок для выключения лодыря
-    const furnitureCards = document.querySelector('.furniture-cards');
+  const furnitureCards = document.querySelector('.furniture-cards');
   waitForImagesToLoad(furnitureCards, show1);
-  
+
   if (currentPage * limit >= data.totalItems) {
     hideLoadMoreButton();
 
-      iziToast.info({
-        message: 'Вибачте, але ви досягли кінця результатів пошуку.',
-        position: 'topRight',
-      });
-    
+    iziToast.info({
+      message: 'Вибачте, але ви досягли кінця результатів пошуку.',
+      position: 'topRight',
+    });
   }
 });
 
@@ -342,9 +341,9 @@ furnitureCategories.addEventListener('click', event => {
     setBorder(currentCategoryId); // Установка бордюра после загрузки
     const remainingItems = data.totalItems - currentPage * limit;
     let show = limit <= remainingItems ? limit : remainingItems;
-  const remainingItems1 = data.totalItems - (currentPage-1) * limit;
+    const remainingItems1 = data.totalItems - (currentPage - 1) * limit;
     const show1 = limit <= remainingItems1 ? limit : remainingItems1;
-  showLoadMoreButton();
+    showLoadMoreButton();
     loadMore.textContent = `Показати ще ${show} з ${remainingItems}`;
     // проверяем загрузку картинок для выключения лодыря
     const furnitureCards = document.querySelector('.furniture-cards');
@@ -352,12 +351,11 @@ furnitureCategories.addEventListener('click', event => {
 
     if (currentPage * limit >= data.totalItems) {
       hideLoadMoreButton();
-      
-        iziToast.info({
-          message: 'Вибачте, але ви досягли кінця результатів пошуку.',
-          position: 'topRight',
-        });
-     
+
+      iziToast.info({
+        message: 'Вибачте, але ви досягли кінця результатів пошуку.',
+        position: 'topRight',
+      });
     }
   });
 });
@@ -371,9 +369,9 @@ loadMore.addEventListener('click', () => {
   fetchFurnitures(currentPage, currentCategoryId, limit, '.furniture-cards').then(data => {
     const remainingItems = data.totalItems - currentPage * limit;
     let show = limit <= remainingItems ? limit : remainingItems;
-  const remainingItems1 = data.totalItems - (currentPage-1) * limit;
+    const remainingItems1 = data.totalItems - (currentPage - 1) * limit;
     const show1 = limit <= remainingItems1 ? limit : remainingItems1;
-  showLoadMoreButton();
+    showLoadMoreButton();
     loadMore.textContent = `Показати ще ${show} з ${remainingItems}`;
     // проверяем загрузку картинок для выключения лодыря
     const furnitureCards = document.querySelector('.furniture-cards');
@@ -382,11 +380,10 @@ loadMore.addEventListener('click', () => {
     if (currentPage * limit >= data.totalItems) {
       hideLoadMoreButton();
 
-        iziToast.info({
-          message: 'Вибачте, але ви досягли кінця результатів пошуку.',
-          position: 'topRight',
-        });
-     
+      iziToast.info({
+        message: 'Вибачте, але ви досягли кінця результатів пошуку.',
+        position: 'topRight',
+      });
     }
   });
   const firstcard = document.querySelector('.furniture-card');
