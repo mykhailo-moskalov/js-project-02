@@ -29,6 +29,24 @@ window.addEventListener('DOMContentLoaded', () => {
     svg.appendChild(use);
   };
 
+  const isTablet = () => window.innerWidth >= 768 && window.innerWidth < 1440;
+
+  let outsideHandler = null;
+  const addOutside = () => {
+    if (outsideHandler || !isTablet()) return;
+    outsideHandler = (e) => {
+      const inside = menu.contains(e.target);
+      const onToggle = openBtn.contains(e.target) || (closeBtn && closeBtn.contains(e.target));
+      if (!inside && !onToggle) close();
+    };
+    document.addEventListener('click', outsideHandler, true);
+  };
+  const removeOutside = () => {
+    if (!outsideHandler) return;
+    document.removeEventListener('click', outsideHandler, true);
+    outsideHandler = null;
+  };
+
   const open = () => {
     menu.classList.add('is-open');
     menu.setAttribute('aria-hidden', 'false');
@@ -36,6 +54,7 @@ window.addEventListener('DOMContentLoaded', () => {
     body.classList.add('no-scroll');
     setBtnIcon(ICON_OPEN);
     openBtn.setAttribute('aria-label', 'Закрити меню');
+    addOutside();
   };
 
   const close = () => {
@@ -45,6 +64,7 @@ window.addEventListener('DOMContentLoaded', () => {
     body.classList.remove('no-scroll');
     setBtnIcon(ICON_CLOSED);
     openBtn.setAttribute('aria-label', 'Відкрити меню');
+    removeOutside();
   };
 
   openBtn.addEventListener('click', (e) => {
@@ -56,16 +76,6 @@ window.addEventListener('DOMContentLoaded', () => {
   if (closeBtn) closeBtn.addEventListener('click', close);
   links.forEach(a => a.addEventListener('click', close));
   window.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
-
-  // Закриття кліком поза меню на tablet (768–1439)
-  document.addEventListener('click', (e) => {
-    const w = window.innerWidth;
-    if (w >= 768 && w < 1440 && menu.classList.contains('is-open')) {
-      const inside = menu.contains(e.target);
-      const onToggle = openBtn.contains(e.target) || (closeBtn && closeBtn.contains(e.target));
-      if (!inside && !onToggle) close();
-    }
-  });
 
   setBtnIcon(ICON_CLOSED);
 });
