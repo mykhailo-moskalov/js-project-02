@@ -11,6 +11,7 @@
 
 /* контейнер шапки */
 .header-container {
+  position: relative;
   height: 72px;
   display: flex;
   align-items: center;
@@ -112,7 +113,7 @@
   height: 40px;
   padding: 0;
   border-radius: 999px;
-  border: 1px solid var(--opacity-neutral-darkest-15);
+  border: 0px solid var(--opacity-neutral-darkest-15);
   background: var(--color-scheme-1-background);
   color: var(--color-neutral-darkest);
 }
@@ -150,7 +151,7 @@
   text-align: center;
 }
 .mobile-menu__link {
-  min-height: 44px;
+  /* min-height: 44px; */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -158,7 +159,7 @@
   line-height: 160%;
   color: var(--color-neutral-darkest);
 }
-
+.mobile-menu__cta { color: var(--color-white); }
 /* CTA в меню */
 .mobile-menu__cta{
   width: 249px;        
@@ -177,17 +178,20 @@
 /* tablet portrait (768–899) — карточка справа под шапкой */
 @media (min-width: 768px) and (max-width: 899.98px) {
   .mobile-menu {
-    position: fixed;
+    position: absolute;
     top: 72px;
     right: 32px;
     left: auto;
     bottom: auto;
     width: 249px;
     padding: 32px 24px 32px 32px;
-    border-radius: 12px;
+    /* border-radius: 12px; */
     transform: translateY(-8px);
     opacity: 0;
     pointer-events: none;
+  }
+  .mobile-menu__nav{
+    justify-items: end;
   }
   .mobile-menu.is-open { transform: translateY(0); opacity: 1; pointer-events: auto; }
   .mobile-menu__head { display: none; } 
@@ -197,17 +201,21 @@
 /* tablet landscape (900–1439) — ширше */
 @media (min-width: 900px) and (max-width: 1439.98px) {
   .mobile-menu {
-    position: fixed;
+    position: absolute;
     top: 72px;
     right: 32px;
     left: auto;
     bottom: auto;
     width: 298px;
     padding: 32px 24px 32px 98px;
-    border-radius: 12px;
+    /* border-radius: 12px; */
     transform: translateY(-8px);
     opacity: 0;
     pointer-events: none;
+  }
+
+  .mobile-menu__nav{
+    justify-items: end;
   }
   .mobile-menu.is-open { transform: translateY(0); opacity: 1; pointer-events: auto; }
   .mobile-menu__head { display: none; }
