@@ -163,7 +163,6 @@ export const orderModal = {
     if (comment) orderData.comment = comment;
 
     // Логування для перевірки
-    console.log('Відправляємо дані:', orderData);
 
     try {
       const res = await fetch(API_URL, {
