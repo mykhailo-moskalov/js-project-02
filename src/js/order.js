@@ -4,11 +4,10 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 const API_URL = 'https://furniture-store.b.goit.study/api/orders';
 
-const orderModal = {
+export const orderModal = {
   refs: {
-    openBtn: document.getElementById('test-open-modal'),
-    closeModalBtn: document.querySelector('[data-modal-close]'),
-    modal: document.querySelector('[data-modal]'),
+    closeModalBtn: document.querySelector('[data-order-close]'),
+    modal: document.querySelector('[data-order]'),
     form: document.getElementById('order-form'),
     emailInput: document.getElementById('order-email'),
     phoneInput: document.getElementById('order-phone'),
@@ -20,54 +19,52 @@ const orderModal = {
   modelId: '682f9bbf8acbdf505592ac36',
   color: '#1212ca',
 
+  listeners: {},
+
   init() {
-    if (!this.checkElements()) {
-      console.error('Не всі необхідні елементи знайдено');
-      return;
-    }
-
-    this.refs.openBtn.addEventListener('click', this.openModal.bind(this));
-    this.refs.closeModalBtn.addEventListener('click', this.closeModal.bind(this));
-    this.refs.modal.addEventListener('click', this.backdropClick.bind(this));
-    document.addEventListener('keydown', this.keydownHandler.bind(this));
-    this.refs.form.addEventListener('submit', this.handleSubmit.bind(this));
-
-    // Додаємо обробники подій для динамічної валідації
-    this.refs.emailInput.addEventListener('input', this.validateEmail.bind(this));
-    this.refs.phoneInput.addEventListener('input', this.validatePhone.bind(this));
-    this.refs.commentInput.addEventListener('input', this.validateComment.bind(this));
-  },
-
-  checkElements() {
-    const requiredElements = [
-      this.refs.openBtn,
-      this.refs.closeModalBtn,
-      this.refs.modal,
-      this.refs.form,
-      this.refs.emailInput,
-      this.refs.phoneInput,
-      this.refs.emailError,
-      this.refs.phoneError,
-      this.refs.commentInput,
-      this.refs.commentError,
-    ];
-
-    return requiredElements.every(el => el !== null);
+    IMask(this.refs.phoneInput, {
+      mask: '+38 (0\\00) 000 00 00',
+    });
   },
 
   openModal() {
     document.body.style.overflow = 'hidden';
-
-    document.body.classList.add('modal-open');
     this.refs.modal.classList.remove('visually-hidden');
+
+    // Bind listeners
+    this.listeners.close = this.closeModal.bind(this);
+    this.listeners.backdrop = this.backdropClick.bind(this);
+    this.listeners.keydown = this.keydownHandler.bind(this);
+    this.listeners.submit = this.handleSubmit.bind(this);
+    this.listeners.email = this.validateEmail.bind(this);
+    this.listeners.phone = this.validatePhone.bind(this);
+    this.listeners.comment = this.validateComment.bind(this);
+
+    this.refs.closeModalBtn.addEventListener('click', this.listeners.close);
+    this.refs.modal.addEventListener('click', this.listeners.backdrop);
+    document.addEventListener('keydown', this.listeners.keydown);
+    this.refs.form.addEventListener('submit', this.listeners.submit);
+    this.refs.emailInput.addEventListener('input', this.listeners.email);
+    this.refs.phoneInput.addEventListener('input', this.listeners.phone);
+    this.refs.commentInput.addEventListener('input', this.listeners.comment);
   },
 
   closeModal() {
     document.body.style.overflow = '';
-    document.body.classList.remove('modal-open');
     this.refs.modal.classList.add('visually-hidden');
     this.refs.form.reset();
     this.clearValidationStyles();
+
+    // Unbind listeners
+    this.refs.closeModalBtn.removeEventListener('click', this.listeners.close);
+    this.refs.modal.removeEventListener('click', this.listeners.backdrop);
+    document.removeEventListener('keydown', this.listeners.keydown);
+    this.refs.form.removeEventListener('submit', this.listeners.submit);
+    this.refs.emailInput.removeEventListener('input', this.listeners.email);
+    this.refs.phoneInput.removeEventListener('input', this.listeners.phone);
+    this.refs.commentInput.removeEventListener('input', this.listeners.comment);
+
+    this.listeners = {};
   },
 
   backdropClick(e) {
@@ -170,7 +167,6 @@ const orderModal = {
     if (comment) orderData.comment = comment;
 
     // Логування для перевірки
-    console.log('Відправляємо дані:', orderData);
 
     try {
       const res = await fetch(API_URL, {
@@ -217,10 +213,6 @@ const orderModal = {
     this.refs.commentError.style.display = 'none';
   },
 };
-
-IMask(orderModal.refs.phoneInput, {
-  mask: '+38 (0\\00) 000 00 00',
-});
 
 document.addEventListener('DOMContentLoaded', () => {
   orderModal.init();

@@ -1,10 +1,9 @@
 .hero {
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
     url('/img/webp/hero/bg.webp') center/cover no-repeat;
-  padding: 157px 0 158px;
+  padding: 158px 0;
   margin: 0 auto;
   width: 100%;
-  max-width: 375px;
 }
 
 @media screen and (min-resolution: 2dppx),
@@ -14,11 +13,6 @@
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
       url('/img/webp/hero@2x/bg@2x.webp') center/cover no-repeat;
   }
-}
-
-.hero-container {
-  max-width: 100%;
-  margin: 0 auto;
 }
 
 .hero-title {
@@ -43,7 +37,7 @@
   max-width: 335px;
   height: 46px;
   padding: 10px 24px;
-  border-radius: 23px;
+  border-radius: 100px;
 
   background: var(--color-madang);
   font-weight: 500;
@@ -55,7 +49,8 @@
   transition: all 150ms ease-in-out;
 
   &:hover,
-  &:focus {
+  &:focus,
+  &:focus-visible {
     opacity: 0.5;
   }
   &:active {
@@ -72,7 +67,7 @@
   .hero {
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
       url('/img/webp/hero/bg-tab.webp') center/cover no-repeat;
-    max-width: 768px;
+
     padding: 36px 0;
   }
 
@@ -88,9 +83,9 @@
   .br-control {
     display: inline;
   }
+
   .hero-description {
     font-size: 18px;
-    max-width: 1439px;
   }
 
   .hero-button {
@@ -102,7 +97,7 @@
   .hero {
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
       url('/img/webp/hero/bg-desk.webp') center/cover no-repeat;
-    max-width: 1440px;
+
     padding: 92px 0;
   }
 
@@ -120,6 +115,5 @@
 
   .hero-description {
     font-size: 20px;
-    max-width: 1440px;
   }
 }
