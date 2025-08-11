@@ -109,3 +109,8 @@
     width: 100%;
   }
 }
+@media only screen and (min-width: 1440px) {
+  .popular {
+    padding: 80px 0;
+  }
+}

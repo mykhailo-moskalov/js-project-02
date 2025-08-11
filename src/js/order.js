@@ -4,9 +4,8 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 const API_URL = 'https://furniture-store.b.goit.study/api/orders';
 
-const orderModal = {
+export const orderModal = {
   refs: {
-    openBtn: document.getElementById('[data-order-open]'),
     closeModalBtn: document.querySelector('[data-order-close]'),
     modal: document.querySelector('[data-order]'),
     form: document.getElementById('order-form'),
@@ -21,12 +20,6 @@ const orderModal = {
   color: '#1212ca',
 
   init() {
-    if (!this.checkElements()) {
-      console.error('Не всі необхідні елементи знайдено');
-      return;
-    }
-
-    this.refs.openBtn.addEventListener('click', this.openModal.bind(this));
     this.refs.closeModalBtn.addEventListener('click', this.closeModal.bind(this));
     this.refs.modal.addEventListener('click', this.backdropClick.bind(this));
     document.addEventListener('keydown', this.keydownHandler.bind(this));
@@ -36,11 +29,14 @@ const orderModal = {
     this.refs.emailInput.addEventListener('input', this.validateEmail.bind(this));
     this.refs.phoneInput.addEventListener('input', this.validatePhone.bind(this));
     this.refs.commentInput.addEventListener('input', this.validateComment.bind(this));
+
+    IMask(orderModal.refs.phoneInput, {
+      mask: '+38 (0\\00) 000 00 00',
+    });
   },
 
   checkElements() {
     const requiredElements = [
-      this.refs.openBtn,
       this.refs.closeModalBtn,
       this.refs.modal,
       this.refs.form,
@@ -57,14 +53,11 @@ const orderModal = {
 
   openModal() {
     document.body.style.overflow = 'hidden';
-
-    document.body.classList.add('modal-open');
     this.refs.modal.classList.remove('visually-hidden');
   },
 
   closeModal() {
     document.body.style.overflow = '';
-    document.body.classList.remove('modal-open');
     this.refs.modal.classList.add('visually-hidden');
     this.refs.form.reset();
     this.clearValidationStyles();
@@ -217,10 +210,6 @@ const orderModal = {
     this.refs.commentError.style.display = 'none';
   },
 };
-
-IMask(orderModal.refs.phoneInput, {
-  mask: '+38 (0\\00) 000 00 00',
-});
 
 document.addEventListener('DOMContentLoaded', () => {
   orderModal.init();
