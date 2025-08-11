@@ -36,7 +36,7 @@ export function renderModal(el) {
           img => `
         <div class="gallery-item">
           <a class="gallery-link" href="${img}">
-            <img src="${img}" class="gallery-image" alt="${el.name}" />
+            <img src="${img}" class="gallery-image" alt='${el.name}' />
           </a>
         </div>`
         )
