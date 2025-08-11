@@ -17,14 +17,16 @@ const galleryLightbox = new SimpleLightbox('div.gallery a', {
   download: true,
 });
 
-document.addEventListener('click', async e => {
-  const button = e.target.closest('[data-id]');
-  if (!button) return;
-});
+let escapeListener;
+let backdropClickListener;
+let closeBtnListener;
+let orderBtnListener;
+let colorItemListeners = [];
+let colorRadioListeners = [];
 
 export function renderModal(el) {
   modalWindow.innerHTML = `
-    <button class="modal-close-btn" type="button" id="modal-close-btn" data-modal-close>
+    <button class="modal-close-btn" type="button" data-modal-close>
       <svg class="modal-icon" width="32" height="32">
         <use href="${spriteUrl}#x"></use>
       </svg>
@@ -42,50 +44,33 @@ export function renderModal(el) {
         .join('')}
     </div>
     <div class="modal-bottom-right">
-        <h3 class="modal-name">${el.name}</h3>
-        <p class="modal-category">${el.category.name}</p>
-        <h4 class="modal-slide-price">${el.price} грн</h4>
-        <div class="rating-list" data-score="${el.rate}"></div>
-        <p class="modal-color-title">Колір</p>
-        <ul class="modal-color">
-          ${el.color
-            .map(
-              (color, index) => `
-            <li class="modal-color-item">
-                <label class="color-label">
-                    <input
-                      type="radio"
-                      name="color"
-                      value="${color}"
-                      class="modal-color-radio"
-                      ${index === 0 ? 'checked' : ''}
-                    />
-                    <span
-                      class="color-circle ${index === 0 ? 'active' : ''}"
-                      style="background-color: ${color};">
-                    </span>
-                </label>
-            </li>`
-            )
-            .join('')}
-        </ul>
-        <p class="modal-descr">${el.description}</p>
-        <p class="modal-sizes">Розміри: ${el.sizes}</p>
-        <button type="button" class="modal-btn" data-order-open>Перейти до замовлення</button>
+      <h3 class="modal-name">${el.name}</h3>
+      <p class="modal-category">${el.category.name}</p>
+      <h4 class="modal-slide-price">${el.price} грн</h4>
+      <div class="rating-list" data-score="${el.rate}"></div>
+      <p class="modal-color-title">Колір</p>
+      <ul class="modal-color">
+        ${el.color
+          .map(
+            (color, index) => `
+          <li class="modal-color-item">
+            <label class="color-label">
+              <input type="radio" name="color" value="${color}" class="modal-color-radio" ${
+              index === 0 ? 'checked' : ''
+            } />
+              <span class="color-circle ${
+                index === 0 ? 'active' : ''
+              }" style="background-color: ${color};"></span>
+            </label>
+          </li>`
+          )
+          .join('')}
+      </ul>
+      <p class="modal-descr">${el.description}</p>
+      <p class="modal-sizes">Розміри: ${el.sizes}</p>
+      <button type="button" class="modal-btn" data-order-open>Перейти до замовлення</button>
     </div>
   `;
-
-  modalWindow.querySelector('[data-modal-close]').addEventListener('click', closeModal);
-
-  const colorRadios = modalWindow.querySelectorAll('.modal-color-radio');
-  const colorCircles = modalWindow.querySelectorAll('.color-circle');
-
-  colorRadios.forEach((radio, index) => {
-    radio.addEventListener('change', () => {
-      colorCircles.forEach(circle => circle.classList.remove('active'));
-      colorCircles[index].classList.add('active');
-    });
-  });
 
   new Raty(document.querySelector('.rating-list'), {
     readOnly: true,
@@ -96,20 +81,77 @@ export function renderModal(el) {
 
   galleryLightbox.refresh();
 
-  // Color selection logic
-  modalWindow.querySelectorAll('.modal-color-item').forEach(item => {
-    item.addEventListener('click', () => {
-      modalWindow.querySelectorAll('.modal-color-item').forEach(i => i.classList.remove('active'));
-      item.classList.add('active');
-    });
-  });
+  // Add all modal-specific listeners
+  addModalListeners();
+}
 
-  // Order button logic
-  modalWindow.querySelector('[data-order-open]').addEventListener('click', () => {
+function handleEscapeKey(e) {
+  if (e.code === 'Escape') closeModal();
+}
+
+function addModalListeners() {
+  const closeBtn = modalWindow.querySelector('[data-modal-close]');
+  const orderBtn = modalWindow.querySelector('[data-order-open]');
+  const colorItems = modalWindow.querySelectorAll('.modal-color-item');
+  const colorRadios = modalWindow.querySelectorAll('.modal-color-radio');
+  const colorCircles = modalWindow.querySelectorAll('.color-circle');
+
+  closeBtnListener = () => closeModal();
+  closeBtn.addEventListener('click', closeBtnListener);
+
+  escapeListener = handleEscapeKey;
+  document.addEventListener('keydown', escapeListener);
+
+  backdropClickListener = e => {
+    if (e.target === modalBackdrop) closeModal();
+  };
+  modalBackdrop.addEventListener('click', backdropClickListener);
+
+  orderBtnListener = () => {
     closeModal();
     orderModal.init();
     orderModal.openModal();
+  };
+  orderBtn.addEventListener('click', orderBtnListener);
+
+  colorItems.forEach(item => {
+    const listener = () => {
+      colorItems.forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+    };
+    item.addEventListener('click', listener);
+    colorItemListeners.push({ element: item, handler: listener });
   });
+
+  colorRadios.forEach((radio, index) => {
+    const listener = () => {
+      colorCircles.forEach(circle => circle.classList.remove('active'));
+      colorCircles[index].classList.add('active');
+    };
+    radio.addEventListener('change', listener);
+    colorRadioListeners.push({ element: radio, handler: listener });
+  });
+}
+
+function removeModalListeners() {
+  document.removeEventListener('keydown', escapeListener);
+  modalBackdrop.removeEventListener('click', backdropClickListener);
+
+  const closeBtn = modalWindow.querySelector('[data-modal-close]');
+  if (closeBtn) closeBtn.removeEventListener('click', closeBtnListener);
+
+  const orderBtn = modalWindow.querySelector('[data-order-open]');
+  if (orderBtn) orderBtn.removeEventListener('click', orderBtnListener);
+
+  colorItemListeners.forEach(({ element, handler }) => {
+    element.removeEventListener('click', handler);
+  });
+  colorItemListeners = [];
+
+  colorRadioListeners.forEach(({ element, handler }) => {
+    element.removeEventListener('change', handler);
+  });
+  colorRadioListeners = [];
 }
 
 export function openModal() {
@@ -121,12 +163,6 @@ export function openModal() {
 export function closeModal() {
   document.body.style.overflow = 'auto';
   modalBackdrop.classList.add('visually-hidden');
+  removeModalListeners();
   modalWindow.innerHTML = ``;
 }
-
-modalBackdrop.addEventListener('click', e => {
-  if (e.target === modalBackdrop) closeModal();
-});
-document.addEventListener('keydown', e => {
-  if (e.code === 'Escape') closeModal();
-});
