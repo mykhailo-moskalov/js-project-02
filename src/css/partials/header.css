@@ -226,7 +226,9 @@
     left: auto;
     bottom: auto;
     width: 298px;
-    padding: 32px 24px 32px 98px;
+    padding-top: 24px;
+    padding-right: 98px;
+    padding-bottom: 24px;
     transform: translateY(-8px);
     opacity: 0;
     pointer-events: none;
@@ -253,6 +255,10 @@
   }
   .mobile-menu__cta {
     width: 298px;
+  }
+  .mobile-menu__nav {
+    justify-items: end;
+    text-align: end;
   }
 }
 
