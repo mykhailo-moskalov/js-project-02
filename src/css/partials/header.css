@@ -255,6 +255,7 @@
     width: 298px;
   }
   .mobile-menu__nav {
+    justify-items: end;
     text-align: end;
   }
 }
