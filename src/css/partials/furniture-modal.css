@@ -27,6 +27,7 @@
   z-index: 601;
   transform: translate(-50%, -50%);
   width: 335px;
+  max-height: 90vh;
   overflow-y: auto;
   background-color: var(--color-scheme-1-background);
 
@@ -82,20 +83,19 @@
     }
   }
 }
+
 .gallery-image {
   border-radius: 8px;
   object-fit: cover;
   height: 197px;
   width: 100%;
-
-  @media only screen and (min-width: 768px) {
-  }
 }
+
 .modal-bottom-right {
   margin-top: 24px;
-  max-width: 358px;
 
   @media only screen and (min-width: 1440px) {
+    max-width: 358px;
     margin: 0;
   }
 }
@@ -185,5 +185,9 @@
   &:disabled {
     cursor: not-allowed;
     opacity: 0.2;
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1439px) {
+    width: 310px;
   }
 }
