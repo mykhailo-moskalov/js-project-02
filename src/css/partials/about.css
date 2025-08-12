@@ -52,10 +52,12 @@
   .about-text p {
     font-size: 18px;
   }
+
   .about-text h2 {
     font-size: 42px;
   }
 }
+
 @media (min-width: 1440px) {
   .about {
     flex-direction: row;

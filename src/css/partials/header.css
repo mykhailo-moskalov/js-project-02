@@ -249,12 +249,13 @@
     pointer-events: auto;
   }
   .mobile-menu__head {
-    display: none; }
+    display: none;
+  }
   .mobile-menu__cta {
-    width: 298px; } /* ширина CTA для horizontal tablet */
+    width: 298px;
+  }
 }
 
-/* desktop (≥1440) */
 @media (min-width: 1440px) {
   .header__nav {
     display: inline-flex;
@@ -269,4 +270,3 @@
     display: none !important;
   }
 }
-

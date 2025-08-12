@@ -31,7 +31,6 @@ export const orderModal = {
     document.body.style.overflow = 'hidden';
     this.refs.modal.classList.remove('visually-hidden');
 
-    // Bind listeners
     this.listeners.close = this.closeModal.bind(this);
     this.listeners.backdrop = this.backdropClick.bind(this);
     this.listeners.keydown = this.keydownHandler.bind(this);
@@ -55,7 +54,6 @@ export const orderModal = {
     this.refs.form.reset();
     this.clearValidationStyles();
 
-    // Unbind listeners
     this.refs.closeModalBtn.removeEventListener('click', this.listeners.close);
     this.refs.modal.removeEventListener('click', this.listeners.backdrop);
     document.removeEventListener('keydown', this.listeners.keydown);
@@ -75,7 +73,6 @@ export const orderModal = {
     if (e.code === 'Escape') this.closeModal();
   },
 
-  // Валідація email
   validateEmail() {
     const email = this.refs.emailInput.value.trim();
     const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
@@ -93,7 +90,6 @@ export const orderModal = {
     }
   },
 
-  // Валідація телефону
   validatePhone() {
     const phone = this.refs.phoneInput.value.trim();
     const phoneRegex = /^\+38\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}$/;
@@ -112,11 +108,9 @@ export const orderModal = {
   },
 
   formatPhoneNumber(phone) {
-    // Видаляємо всі нецифрові символи
     return phone.replace(/\D/g, '');
   },
 
-  // Валідація коментаря
   validateComment() {
     const comment = this.refs.commentInput.value.trim();
 
@@ -136,12 +130,10 @@ export const orderModal = {
   async handleSubmit(e) {
     e.preventDefault();
 
-    // Очистити попередні стилі помилок
     this.clearValidationStyles();
 
     let isValid = true;
 
-    // Виконуємо всі валідації
     if (!this.validateEmail()) isValid = false;
     if (!this.validatePhone()) isValid = false;
     if (!this.validateComment()) isValid = false;
@@ -155,18 +147,15 @@ export const orderModal = {
       return;
     }
 
-    // Формуємо об'єкт замовлення
     const orderData = {
       email: this.refs.emailInput.value.trim(),
-      phone: this.formatPhoneNumber(this.refs.phoneInput.value.trim()), // Форматуємо телефон
+      phone: this.formatPhoneNumber(this.refs.phoneInput.value.trim()),
       modelId: this.modelId,
       color: this.color,
     };
 
     const comment = this.refs.commentInput.value.trim();
     if (comment) orderData.comment = comment;
-
-    // Логування для перевірки
 
     try {
       const res = await fetch(API_URL, {
