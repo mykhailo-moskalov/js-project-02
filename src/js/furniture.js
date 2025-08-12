@@ -85,12 +85,11 @@ const categoryImages = {
     src2x: bigImgUrl13,
   },
 };
+
 export let furnitureList = [];
 export function addToFurnitureList(items) {
   furnitureList = [...furnitureList, ...items];
 }
-
-// --------------------------- Шаблоны -----------------------------------------
 
 const templateCat = `<li class="furniture-item" id="{idCat}">
   <div class="furniture-item-content">
@@ -114,7 +113,6 @@ const template2 = `<li class="furniture-card">
   <button data-id="{idFrn}" class="furniture-card-button" data-open-modal>Детальніше</button>
 </li>`;
 
-// --------------------------- контроль загрузки картинок -----------------------
 function waitForImagesToLoad(furnitureCards, show) {
   const images = furnitureCards.querySelectorAll('img');
   let loadedImages = 0;
@@ -139,7 +137,6 @@ function waitForImagesToLoad(furnitureCards, show) {
   }
 }
 
-// --------------------------- Запрос категорий ---------------------------------
 async function getCategoriesByQuery(query, page, perPage) {
   try {
     const response = await axios.get('https://furniture-store.b.goit.study/api/categories', {});
@@ -149,7 +146,6 @@ async function getCategoriesByQuery(query, page, perPage) {
   }
 }
 
-// --------------------------- Запрос товаров ---------------------------------
 async function getFurnitures(page = 1, categoryId = '', limit) {
   try {
     const params = {
@@ -168,15 +164,10 @@ async function getFurnitures(page = 1, categoryId = '', limit) {
   }
 }
 
-// ------------------------------------ Рендер категорий -----------------------------------
 async function createCategories(categories) {
-  // Добавляем первую категорию "Всі товари" с id="all-categories"
-  const updatedCategories = [
-    { _id: 'all-categories', name: 'Всі товари' },
-    ...categories, // Остальные категории из промиса
-  ];
+  const updatedCategories = [{ _id: 'all-categories', name: 'Всі товари' }, ...categories];
 
-  let counter = 1; // Счётчик для numCat, начиная с 1
+  let counter = 1;
   const markup = updatedCategories
     .map(item => {
       const images = categoryImages[counter] || {};
@@ -199,12 +190,11 @@ async function createCategories(categories) {
   setBorder('all-categories');
 }
 
-// -------------------------------------- Запрос категорий ---------------------------------------
 async function fetchCategories() {
   try {
     const data = await getCategoriesByQuery();
 
-    await createCategories(data); // Вызов рендера с полученными данными
+    await createCategories(data);
     return data;
   } catch (error) {
     iziToast.error({
@@ -216,17 +206,14 @@ async function fetchCategories() {
   }
 }
 
-// ----------------------- Показать кнопку Load more ---------------------------
 function showLoadMoreButton() {
   loadMore.style.display = 'block';
 }
 
-// ------------------------- Скрыть кнопку Load more ----------------------------------
 function hideLoadMoreButton() {
   loadMore.style.display = 'none';
 }
 
-// -------------------------------------- Запрос мебели ---------------------------------------
 async function fetchFurnitures(page, categoryId = '', limit, insert) {
   try {
     const data = await getFurnitures(page, categoryId, limit);
@@ -235,11 +222,10 @@ async function fetchFurnitures(page, categoryId = '', limit, insert) {
       throw new Error('Invalid furniture data');
     }
 
-    // ✅ Reset or append depending on page
     if (page === 1) {
-      furnitureList = [...data.furnitures]; // reset
+      furnitureList = [...data.furnitures];
     } else {
-      furnitureList = [...furnitureList, ...data.furnitures]; // append
+      furnitureList = [...furnitureList, ...data.furnitures];
     }
 
     await createFurnitureCards(data.furnitures, insert);
@@ -257,7 +243,6 @@ async function fetchFurnitures(page, categoryId = '', limit, insert) {
   }
 }
 
-// --------------------------- Рендер мебели --------------------------
 async function createFurnitureCards(furnitures, insert) {
   const markup2 = furnitures
     .map(item => {
@@ -280,23 +265,18 @@ async function createFurnitureCards(furnitures, insert) {
   furnitureCards.insertAdjacentHTML('beforeend', markup2);
 }
 
-// --------------------------- Функция для управления бордюров -----------------------
 function setBorder(categoryId) {
-  // Сбрасываем бордюр у всех элементов .furniture-item-content
   const allItems = document.querySelectorAll('.furniture-item-content');
   allItems.forEach(item => {
     item.style.border = '';
     item.style.borderRadius = '';
   });
-  // Устанавливаем бордюр для .furniture-item-content внутри указанного id
   const currentItem = document.getElementById(categoryId).querySelector('.furniture-item-content');
 
   currentItem.style.border = '8px solid #6b0609';
   currentItem.style.borderRadius = '8px';
 }
 
-// ---------------------------- Тельце --------------------------------
-// Инициализация
 const limit = 8;
 let currentCategoryId = 'all-categories';
 let currentPage = 1;
@@ -313,7 +293,6 @@ fetchFurnitures(currentPage, currentCategoryId, limit, '.furniture-cards').then(
   const show1 = limit <= remainingItems1 ? limit : remainingItems1;
   showLoadMoreButton();
   loadMore.textContent = `Показати ще ${show} з ${remainingItems}`;
-  // проверяем загрузку картинок для выключения лодыря
   const furnitureCards = document.querySelector('.furniture-cards');
   waitForImagesToLoad(furnitureCards, show1);
 
@@ -327,10 +306,8 @@ fetchFurnitures(currentPage, currentCategoryId, limit, '.furniture-cards').then(
   }
 });
 
-// Работа
 const furnitureCategories = document.querySelector('.furniture-categories');
 
-// Клик на категорию
 furnitureCategories.addEventListener('click', event => {
   hideLoadMoreButton();
   currentPage = 1;
@@ -338,14 +315,13 @@ furnitureCategories.addEventListener('click', event => {
   document.querySelector('.furniture-cards').innerHTML = '';
   showLoader('.furniture-loader');
   fetchFurnitures(currentPage, currentCategoryId, limit, '.furniture-cards').then(data => {
-    setBorder(currentCategoryId); // Установка бордюра после загрузки
+    setBorder(currentCategoryId);
     const remainingItems = data.totalItems - currentPage * limit;
     let show = limit <= remainingItems ? limit : remainingItems;
     const remainingItems1 = data.totalItems - (currentPage - 1) * limit;
     const show1 = limit <= remainingItems1 ? limit : remainingItems1;
     showLoadMoreButton();
     loadMore.textContent = `Показати ще ${show} з ${remainingItems}`;
-    // проверяем загрузку картинок для выключения лодыря
     const furnitureCards = document.querySelector('.furniture-cards');
     waitForImagesToLoad(furnitureCards, show1);
 
@@ -360,7 +336,6 @@ furnitureCategories.addEventListener('click', event => {
   });
 });
 
-// Клик на Далее
 loadMore.addEventListener('click', () => {
   hideLoadMoreButton();
   showLoader('.furniture-loader');
@@ -373,7 +348,6 @@ loadMore.addEventListener('click', () => {
     const show1 = limit <= remainingItems1 ? limit : remainingItems1;
     showLoadMoreButton();
     loadMore.textContent = `Показати ще ${show} з ${remainingItems}`;
-    // проверяем загрузку картинок для выключения лодыря
     const furnitureCards = document.querySelector('.furniture-cards');
     waitForImagesToLoad(furnitureCards, show1);
 
@@ -415,6 +389,6 @@ document.addEventListener('click', e => {
     return;
   }
 
-  renderModal(furnitureData); // make sure this is imported from modal.js
-  openModal(); // make sure this is imported from modal.js
+  renderModal(furnitureData);
+  openModal();
 });

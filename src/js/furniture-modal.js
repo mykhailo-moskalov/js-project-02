@@ -81,7 +81,6 @@ export function renderModal(el) {
 
   galleryLightbox.refresh();
 
-  // Add all modal-specific listeners
   addModalListeners();
 }
 

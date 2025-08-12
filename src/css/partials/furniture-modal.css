@@ -1,16 +1,12 @@
 .modal-backdrop {
   width: 100%;
   height: 100%;
-
   position: fixed;
   top: 0;
   left: 0;
   z-index: 600;
-
   overflow: auto;
-
   background: rgba(0, 0, 0, 0.25);
-
   opacity: 1;
   visibility: visible;
   pointer-events: all;
@@ -24,19 +20,14 @@
 
 .modal-window {
   padding: 64px 20px 43.8px;
-
   border-radius: 8px;
-
   position: absolute;
   top: 50%;
   left: 50%;
   z-index: 601;
   transform: translate(-50%, -50%);
   width: 335px;
-
   overflow-y: auto;
-  max-height: 90vh;
-
   background-color: var(--color-scheme-1-background);
 
   @media only screen and (min-width: 768px) {
@@ -46,7 +37,6 @@
   @media only screen and (min-width: 1440px) {
     padding: 64px;
     width: 1090px;
-
     display: flex;
   }
 }
@@ -54,12 +44,8 @@
   position: absolute;
   top: 16px;
   right: 16px;
-
   border: none;
   background-color: transparent;
-
-  @media only screen and (min-width: 768px) {
-  }
 }
 .modal-icon {
   fill: var(--color-neutral-darkest);
@@ -108,41 +94,34 @@
 .modal-bottom-right {
   margin-top: 24px;
   max-width: 358px;
+
   @media only screen and (min-width: 1440px) {
     margin: 0;
   }
 }
+
 .modal-category {
   line-height: 1.6;
-  @media only screen and (min-width: 768px) {
-  }
 }
 
 .modal .rating-list {
   margin-top: 24px;
-  @media only screen and (min-width: 768px) {
-  }
 }
+
 .modal-color-title {
   line-height: 1.6;
   margin: 24px 0 8px;
-  @media only screen and (min-width: 768px) {
-  }
 }
+
 .modal-color {
   display: flex;
   gap: 16px;
-  @media only screen and (min-width: 768px) {
-  }
-}
-.modal-color-item {
-  @media only screen and (min-width: 768px) {
-  }
 }
 
 .modal-color-radio {
   display: none;
 }
+
 .color-circle {
   cursor: pointer;
   display: inline-block;
@@ -160,15 +139,19 @@
 .modal-descr {
   margin-top: 24px;
   line-height: 1.6;
+
   @media only screen and (min-width: 768px) {
   }
 }
+
 .modal-sizes {
   margin-top: 32px;
   line-height: 1.6;
+
   @media only screen and (min-width: 768px) {
   }
 }
+
 .modal-btn {
   width: 100%;
   display: flex;
@@ -202,8 +185,5 @@
   &:disabled {
     cursor: not-allowed;
     opacity: 0.2;
-  }
-
-  @media only screen and (min-width: 768px) {
   }
 }

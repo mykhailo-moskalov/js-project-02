@@ -1,4 +1,6 @@
 .order-backdrop {
+  overflow: auto;
+
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.25);
@@ -19,6 +21,8 @@
 }
 
 .order-modal {
+  overflow-y: auto;
+
   position: relative;
   width: 100%;
   padding: 66px;
@@ -27,7 +31,6 @@
   box-shadow: 0 4px 16px var(--color-scheme-1-border);
 }
 
-/* Базові стилі для модального вікна */
 .order-backdrop {
   position: fixed;
   top: 0;
@@ -139,7 +142,6 @@
   resize: vertical;
 }
 
-/* Стилі для помилок валідації */
 [data-error] {
   display: none;
   color: #ff0000;
@@ -214,7 +216,6 @@ textarea::placeholder {
   }
 }
 
-/* Адаптивні стилі */
 @media only screen and (min-width: 768px) {
   .order-modal {
     max-width: 704px;

@@ -23,7 +23,6 @@
   &:first-child {
     border-top: solid 1px var(--color-scheme-1-border) !important;
   }
-
   &:has(.ac-trigger:hover),
   &:has(.ac-trigger:focus),
   &:has(.ac-trigger:focus-visible) {

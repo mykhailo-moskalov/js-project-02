@@ -1,10 +1,8 @@
-/* Common styles */
 @import url('./reset.css');
 @import url('./base.css');
 @import url('./container.css');
 @import url('../fonts/fonts.css');
 
-/* Sections style */
 @import url('./partials/header.css');
 @import url('./partials/hero.css');
 @import url('./partials/furniture.css');
